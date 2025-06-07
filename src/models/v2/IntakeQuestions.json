@@ -1,0 +1,119 @@
+[
+    {
+        "title": "What made you think about getting therapy?",
+        "options": [
+            "Addictions",
+            "ADHD",
+            "Anger",
+            "Anxiety",
+            "Bipolar disorder",
+            "Concentration difficulties",
+            "Depression",
+            "Eating problems",
+            "Grief",
+            "Hearing voices",
+            "Hoarding",
+            "Lack of purpose",
+            "Lack of self-confidence",
+            "Loneliness",
+            "Obsessive-compulsive disorder",
+            "Panic attacks",
+            "Paranoia",
+            "Phobias",
+            "Postnatal depression",
+            "Past trauma",
+            "Recreational drugs and alcohol support",
+            "Relationship problems",
+            "School problems",
+            "Self-esteem & confidence",
+            "Sexual issues",
+            "Sleep problems",
+            "Stress",
+            "Suicidal feelings"
+        ],
+        "multipleChoice": true
+    },
+    {
+        "title": "How distressing/intense are the symptoms?",
+        "options": ["Slightly", "Mildly", "Moderately", "Highly", "Extremely"]
+    },
+    {
+        "title": "What have you tried that has helped with this?",
+        "options": [
+            "Coping mechanisms",
+            "Counselling/therapy",
+            "Medication",
+            "Talking about it with someone",
+            "Others",
+            "Nothing"
+        ],
+        "multipleChoice": true
+    },
+    {
+        "title": "What is the outcome you expect from the session?",
+        "options": [
+            "Prevention",
+            "Diagnosis",
+            "Crisis or emergency",
+            "Treatment",
+            "Ask for advice",
+            "Changing habits",
+            "To have someone who listens to me",
+            "Help me to get goals",
+            "Gain new skills"
+        ],
+        "multipleChoice": true
+    },
+    {
+        "title": "Do you have specific preferences for your therapist?",
+        "options": [
+            "Male therapist",
+            "Female therapist",
+            "Specialized in LGBTQ+ issues",
+            "An LGBTQ+ friendly therapist",
+            "Non-religious therapist",
+            "Religious-based counselling",
+            "Specialized in anti-racist practices"
+        ],
+        "multipleChoice": true
+    },
+    {
+        "title": "What do you expect from your therapist?",
+        "options": [
+            "Listens",
+            "Heals my past",
+            "Assigns me practical activities",
+            "Explores my beliefs",
+            "Other"
+        ],
+        "multipleChoice": true,
+        "showTextArea": true
+    },
+    {
+        "title": "Are you comfortable being assigned a counsellor of different nationality?",
+        "options": ["Yes", "No preference"]
+    },
+    {
+        "title": "Where would you be during the counselling session?",
+        "options": ["At home", "Work", "Commuting", "Somewhere else"]
+    },
+    {
+        "title": "Please let your therapist know If there is anything else you feel will support your session...",
+        "showTextArea": true
+    },
+    {
+        "title": "How did you find out about PositiveO?",
+        "options": [
+            "Google searcher",
+            "Social media",
+            "A friend",
+            "A mental health professional",
+            "App Store"
+        ],
+        "multipleChoice": true
+    },
+    {
+        "title": "Do you have a support group?",
+        "options": ["Family", "Friends", "None", "Pastor", "Church"]
+    }
+]

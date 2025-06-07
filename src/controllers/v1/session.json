@@ -1,0 +1,18 @@
+{
+    "_id": "63265d58c48d4800163ec736",
+    "sessionCategories": [
+        "632648dd5220bda7e8d83ed1",
+        "632648665220bda7e8d83ece"
+    ],
+    "status": "approved",
+    "sessionHeld": false,
+    "user": "63264d9cc48d4800163ec71c",
+    "name": "Test session",
+    "description": "",
+    "sessionType": "session",
+    "startTime": "1663460400000",
+    "endTime": "1663462200000",
+    "createdAt": "1663458648022",
+    "__v": 0,
+    "counsellor": "6311f1be2ec51c1e9dc595ad"
+}

@@ -1,9 +1,6 @@
 # Logs
 logs
 *.log
-# .gitignore
-src/configs/firebase/serviceAccountkey.json
-src/configs/envs/.env.development
 
 # Runtime data
 pids

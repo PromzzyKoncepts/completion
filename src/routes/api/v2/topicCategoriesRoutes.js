@@ -10,10 +10,5 @@ router.post(
    // AuthMiddleware.hasPrivilege("admin"),
     TopicCategoryController.addTopicCategory
 );
-router.get(
-    "/",
-    AuthMiddleware.protect,
-    TopicCategoryController.getAllTopicCategories
-);
 
 module.exports = router;

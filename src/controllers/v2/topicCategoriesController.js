@@ -35,31 +35,3 @@ exports.addTopicCategory = asyncHandler(async (req, res, next) => {
         return ApiResponse.error(res, "Error adding topic category");
     }
 });
-
-
-exports.getAllTopicCategories = asyncHandler(async (req, res, next) => {
-    try {
-        // Get all topic categories sorted by name in descending order (Z-A)
-        const topicCategories = await TopicCategory.find({})
-            .sort({ name: -1 }) // -1 for descending order
-            .select("name description code color_code rank") // Only select these fields
-            .lean(); // Convert to plain JavaScript objects
-
-        // Format the response data as specified
-        const formattedCategories = topicCategories.map(category => ({
-            name: category.name,
-            description: category.description,
-            code: category.code,
-            color_code: category.color_code,
-            rank: category.rank,
-            id:category._id
-        }));
-
-        return ApiResponse.success(res, formattedCategories, "Topic categories retrieved successfully");
-
-    } catch (error) {
-        AppLogger.error(error);
-        console.log(error)
-        return ApiResponse.error(res, "Error retrieving topic categories");
-    }
-});

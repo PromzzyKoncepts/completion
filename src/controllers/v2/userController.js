@@ -416,7 +416,7 @@ exports.updateEmail = asyncHandler(async (req, res, next) => {
         // Find the user by their ID (assumed to be in req.user.id) and update the email
         const updatedUser = await User.findByIdAndUpdate(
             req.user.id,
-            { email: newEmail, isEmailVerified: false },
+            { email: newEmail },
             { new: true, runValidators: true } // Options: return the updated document and run validators
         );
 
@@ -469,8 +469,8 @@ exports.updateUserEmail = asyncHandler(async (req, res, next) => {
     }
 
     // Update the user's email (but mark the email as unverified)
-    currentUser.email = newEmail;
-    currentUser.isEmailVerified = false;
+    // currentUser.email = newEmail;
+    //currentUser.isEmailVerified = false;
     currentUser.verifyEmailCode = Math.floor(1000 + Math.random() * 9000); // Generate new email verification code
 
     // Save the updated user info

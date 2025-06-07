@@ -5,8 +5,7 @@ const argon = require("argon2");
 
 const baseOption = {
     discriminatorKey: "itemtype",
-    collection: "items"
-
+    collection: "items",
 };
 
 const baseSchema = new mongoose.Schema(
@@ -70,9 +69,46 @@ const baseSchema = new mongoose.Schema(
             select: false,
         },
         blocked: {
-            type: Boolean,
-            default: false,
+            status: {
+                type: Boolean,
+                default: false,
+            },
+            reason: {
+                type: String,
+            },
+            type: {
+                type: String,
+                enum: ["None", "1 week", "2 weeks", "1 month", "Permanent"],
+                default: "None",
+            },
+            blockedAt: {
+                type: Date,
+            },
+            unblockDate: {
+                type: Date,
+            },
+            manuallyUnblocked: {
+                type: Boolean,
+                default: false,
+            },
         },
+        blockHistory: [
+            {
+                status: Boolean,
+                reason: String,
+                type: {
+                    type: String,
+                    enum: ["1 week", "2 weeks", "1 month", "Permanent"],
+                },
+                blockedAt: Date,
+                unblockDate: Date,
+                manuallyUnblocked: {
+                    type: Boolean,
+                    default: false,
+                },
+            },
+        ],
+
         firstName: {
             type: String,
         },
@@ -282,11 +318,11 @@ baseSchema.methods.updateNotificationSettings = async function (settings) {
         "emailNewConvo",
         "pushRescheduleRequest",
         "emailRescheduleRequest",
-        "commentReplies"
+        "commentReplies",
     ];
 
     // Update only the allowed fields
-    Object.keys(settings).forEach(key => {
+    Object.keys(settings).forEach((key) => {
         if (allowedUpdates.includes(key)) {
             this.notificationSettings[key] = settings[key];
         }

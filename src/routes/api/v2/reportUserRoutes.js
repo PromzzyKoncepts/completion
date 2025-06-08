@@ -23,7 +23,9 @@ router.get(
   "/all",
   AuthMiddleware.protect,
   AuthMiddleware.restrictTo("admin"),
-  ReportUserController.getAllReports,
+  ReportUserController.getUserReports,
 )
+
+// getUserReports
 
 module.exports = router;

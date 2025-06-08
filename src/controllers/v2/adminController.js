@@ -12,6 +12,155 @@ const Incidents = require("../../models/v2/ReportUser");
 const AppLogger = require("../../middlewares/logger/logger");
 const Factory = require("../../utils/factory");
 const ApiResponse = require("../../utils/ApiResponse");
+const ReportUser = require("../../models/v2/ReportUser");
+
+exports.unblockUser = asyncHandler(async (req, res, next) => {
+    try {
+        const { userId, reason } = req.body;
+        AppLogger.info(`Unblock request received for userId: ${userId}`);
+
+        const user = await User.findById(userId);
+        if (!user) {
+            AppLogger.warn(
+                `User not found for unblock request. userId: ${userId}`
+            );
+            return ApiResponse.notFound(res, "User not found");
+        }
+
+        if (!["serviceuser", "counsellor"].includes(user.accountType)) {
+            AppLogger.warn(
+                `Attempt to unblock a non-serviceuser/counsellor. userId: ${userId}, accountType: ${user.accountType}`
+            );
+            return ApiResponse.error(
+                res,
+                "Only serviceuser or counsellor can be unblocked."
+            );
+        }
+
+        if (!user.blocked.status) {
+            AppLogger.info(
+                `Unblock request denied; user is not blocked. userId: ${userId}`
+            );
+            return ApiResponse.error(res, "User is not currently blocked.");
+        }
+
+        // Save current block to blockHistory before unblocking
+        user.blockHistory = user.blockHistory || [];
+        user.blockHistory.push({ ...user.blocked });
+
+        // Update block info to unblock user
+        user.blocked = {
+            status: false,
+            reason: "",
+            type: "None",
+            blockedAt: null,
+            unblockDate: null,
+            manuallyUnblocked: true,
+        };
+
+        await user.save();
+
+        AppLogger.info(
+            `User unblocked successfully. userId: ${userId}, reason: ${
+                reason || "Manually unblocked"
+            }`
+        );
+
+        return ApiResponse.success(
+            res,
+            {},
+            "User has been unblocked successfully."
+        );
+    } catch (error) {
+        AppLogger.error(
+            `Error unblocking user. userId: ${req.body.userId}, error: ${error.message}`
+        );
+        return ApiResponse.error(res, "Error unblocking user");
+    }
+});
+
+exports.blockUser = asyncHandler(async (req, res, next) => {
+    try {
+        const { userId, reason, type } = req.body;
+
+        if (!["1 week", "2 weeks", "1 month", "Permanent"].includes(type)) {
+            return ApiResponse.error(res, "Invalid block type.");
+        }
+
+        const user = await User.findById(userId);
+        if (!user) {
+            return ApiResponse.notFound(res, "User not found");
+        }
+
+        if (!["serviceuser", "counsellor"].includes(user.accountType)) {
+            return ApiResponse.error(
+                res,
+                "Only serviceuser or consellor can be blocked."
+            );
+        }
+
+        const reportCount = await ReportUser.countDocuments({
+            reportedUser: user._id,
+            status: { $in: ["unresolved", "reviewed"] },
+        });
+
+        if (reportCount === 0) {
+            return ApiResponse.error(
+                res,
+                "User cannot be blocked because they have not been reported."
+            );
+        }
+
+        const now = new Date();
+
+        // Check if user is already blocked and block is active
+        if (user.blocked.status) {
+            if (!user.blocked.unblockDate || user.blocked.unblockDate > now) {
+                return ApiResponse.error(res, "User is already blocked.");
+            }
+            // else block expired, allow re-block
+        }
+
+        // Calculate unblock date
+        let unblockDate = null;
+        if (type !== "Permanent") {
+            const durationMap = {
+                "1 week": 7,
+                "2 weeks": 14,
+                "1 month": 30,
+            };
+            const days = durationMap[type];
+            unblockDate = new Date(now.getTime() + days * 24 * 60 * 60 * 1000);
+        }
+
+        // Save current block into blockHistory if any
+        if (user.blocked.status) {
+            user.blockHistory = user.blockHistory || [];
+            user.blockHistory.push({ ...user.blocked });
+        }
+
+        // Set new block
+        user.blocked = {
+            status: true,
+            reason,
+            type,
+            blockedAt: now,
+            unblockDate,
+            manuallyUnblocked: false,
+        };
+
+        await user.save();
+
+        return ApiResponse.success(
+            res,
+            {},
+            "User has been blocked successfully."
+        );
+    } catch (error) {
+        AppLogger.error(error);
+        return ApiResponse.error(res, "Error blocking user");
+    }
+});
 
 exports.getTownSquareOverview = asyncHandler(async (req, res, next) => {
     try {

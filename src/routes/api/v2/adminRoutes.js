@@ -5,6 +5,20 @@ const reportController = require("../../../controllers/v2/reportUserController")
 
 const router = express.Router();
 
+router.get(
+    "/blocked-users", //unblockUser getBlockedUser
+    AuthMiddleware.protect,
+    AuthMiddleware.restrictTo("admin"),
+    adminontroller.getBlockedUsers
+);
+
+router.get(
+    "/blocked-user", //unblockUser getBlockedUser
+    AuthMiddleware.protect,
+    AuthMiddleware.restrictTo("admin"),
+    adminontroller.getBlockedUser
+);
+
 router.patch(
     "/user-unblock", //unblockUser
     AuthMiddleware.protect,

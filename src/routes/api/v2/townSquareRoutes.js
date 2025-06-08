@@ -47,7 +47,7 @@ router.patch(
 
 router.post(
   "/convo/:topicId",
-  TownSquareMiddleware.validateAddConvo,
+  // TownSquareMiddleware.validateAddConvo,
   AuthMiddleware.protect,
   TownSquareController.createConvo
 );
@@ -76,7 +76,7 @@ router.patch(
 router.post(
   "/convo/:id/report",
   AuthMiddleware.protect,
-  AuthMiddleware.restrictTo("serviceuser", "counsellor"),
+  // AuthMiddleware.restrictTo("serviceuser", "counsellor"),
   TownSquareController.reportConvo
 );
 

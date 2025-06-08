@@ -6,25 +6,21 @@ const ReportUserMiddleware = require("../../../middlewares/v2/reportUser");
 const router = express.Router();
 
 router.post(
-  "/",
-  AuthMiddleware.protect,
-  AuthMiddleware.restrictTo("serviceuser", "counsellor"),
-  ReportUserMiddleware.validateReportUser,
-  ReportUserController.reportUser,
-)
+    "/",
+    AuthMiddleware.protect,
+    // AuthMiddleware.restrictTo("serviceuser", "counsellor"),
+    // ReportUserMiddleware.validateReportUser,
+    ReportUserController.reportUser
+);
+
+router.get("/", AuthMiddleware.protect, ReportUserController.getReport);
 
 router.get(
-  "/",
-  AuthMiddleware.protect,
-  ReportUserController.getReport,
-)
-
-router.get(
-  "/all",
-  AuthMiddleware.protect,
-  AuthMiddleware.restrictTo("admin"),
-  ReportUserController.getUserReports,
-)
+    "/all",
+    AuthMiddleware.protect,
+    AuthMiddleware.restrictTo("admin"),
+    ReportUserController.getUserReports
+);
 
 // getUserReports
 

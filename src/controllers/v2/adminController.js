@@ -14,6 +14,145 @@ const Factory = require("../../utils/factory");
 const ApiResponse = require("../../utils/ApiResponse");
 const ReportUser = require("../../models/v2/ReportUser");
 
+exports.getBlockedUser = asyncHandler(async (req, res) => {
+    try {
+        const now = new Date();
+        const { accountType, userId } = req.query;
+
+        if (
+            !accountType ||
+            !["counsellor", "serviceuser"].includes(accountType)
+        ) {
+            return ApiResponse.error(
+                res,
+                "Invalid or missing accountType. Must be 'counsellor' or 'serviceuser'.",
+                400
+            );
+        }
+
+        if (!userId) {
+            return ApiResponse.error(res, "Missing userId parameter.", 400);
+        }
+
+        const user = await User.findOne({
+            _id: userId,
+            accountType,
+            "blocked.status": true,
+            $or: [
+                { "blocked.unblockDate": { $gt: now } },
+                { "blocked.unblockDate": null },
+            ],
+        }).select("firstName lastName blocked accountType");
+
+        if (!user) {
+            return ApiResponse.error(res, "Blocked user not found.", 404);
+        }
+
+        const { blocked } = user;
+        const fullName = `${user.firstName || ""} ${
+            user.lastName || ""
+        }`.trim();
+
+        let timeLeft = null;
+        if (blocked.unblockDate) {
+            const msLeft = blocked.unblockDate.getTime() - now.getTime();
+            const days = Math.floor(msLeft / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((msLeft / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((msLeft / (1000 * 60)) % 60);
+            timeLeft = `${days}d ${hours}h ${minutes}m`;
+        } else {
+            timeLeft = "Permanent";
+        }
+
+        const formattedUser = {
+            userId: user._id,
+            name: fullName || "N/A",
+            isBlocked: blocked.status,
+            blockedType: blocked.type,
+            blockedAt: blocked.blockedAt,
+            reportItem: blocked.reportedItem,
+            timeLeft,
+            accountType: user.accountType,
+        };
+
+        return ApiResponse.success(
+            res,
+            formattedUser,
+            "Blocked user fetched successfully."
+        );
+    } catch (error) {
+        AppLogger.error(error);
+        return ApiResponse.error(res, "Failed to fetch blocked user.");
+    }
+});
+
+exports.getBlockedUsers = asyncHandler(async (req, res) => {
+    try {
+        const now = new Date();
+        const { accountType } = req.query;
+
+        if (
+            !accountType ||
+            !["counsellor", "serviceuser"].includes(accountType)
+        ) {
+            return ApiResponse.error(
+                res,
+                "Invalid or missing accountType. Must be 'counsellor' or 'serviceuser'.",
+                400
+            );
+        }
+
+        const users = await User.find({
+            "blocked.status": true,
+            accountType,
+            $or: [
+                { "blocked.unblockDate": { $gt: now } },
+                { "blocked.unblockDate": null },
+            ],
+        }).select("firstName lastName blocked accountType");
+
+        const formattedUsers = users.map((user) => {
+            const { blocked } = user;
+            console.log(blocked);
+            const fullName = `${user.firstName || ""} ${
+                user.lastName || ""
+            }`.trim();
+
+            let timeLeft = null;
+
+            if (blocked.unblockDate) {
+                const msLeft = blocked.unblockDate.getTime() - now.getTime();
+                const days = Math.floor(msLeft / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((msLeft / (1000 * 60 * 60)) % 24);
+                const minutes = Math.floor((msLeft / (1000 * 60)) % 60);
+                timeLeft = `${days}d ${hours}h ${minutes}m`;
+            } else {
+                timeLeft = "Permanent";
+            }
+
+            return {
+                userId: user._id, // <-- Here
+                name: fullName || "N/A",
+                isBlocked: blocked.status,
+                blockedType: blocked.type,
+                blockedAt: blocked.blockedAt,
+                reportItem: blocked.reportedItem,
+                timeLeft,
+                accountType: user.accountType,
+            };
+        });
+
+        return ApiResponse.success(
+            res,
+            formattedUsers,
+            "Blocked users fetched successfully."
+        );
+    } catch (error) {
+        AppLogger.error(error);
+        return ApiResponse.error(res, "Failed to fetch blocked users.");
+    }
+});
+
 exports.unblockUser = asyncHandler(async (req, res, next) => {
     try {
         const { userId, reason } = req.body;
@@ -81,7 +220,7 @@ exports.unblockUser = asyncHandler(async (req, res, next) => {
 
 exports.blockUser = asyncHandler(async (req, res, next) => {
     try {
-        const { userId, reason, type } = req.body;
+        const { userId, reason, type, reportedItem } = req.body;
 
         if (!["1 week", "2 weeks", "1 month", "Permanent"].includes(type)) {
             return ApiResponse.error(res, "Invalid block type.");
@@ -147,6 +286,7 @@ exports.blockUser = asyncHandler(async (req, res, next) => {
             blockedAt: now,
             unblockDate,
             manuallyUnblocked: false,
+            reportedItem,
         };
 
         await user.save();

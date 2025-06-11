@@ -8,12 +8,6 @@ const router = express.Router();
 
 //Media
 
-router.post(
-    "/media-overview",
-    // AuthMiddleware.protect,
-    // AuthMiddleware.restrictTo("admin"),
-    MediaOverviewController.updateMediaOverview
-); /// dont forget to move this to another controller - articleController
 
 router.get(
     "/media-overview",

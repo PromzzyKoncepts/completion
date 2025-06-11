@@ -1,12 +1,29 @@
 const express = require("express");
 const adminontroller = require("../../../controllers/v2/adminController");
+const MediaOverviewController = require("../../../controllers/v2/mediaOverviewController");
 const AuthMiddleware = require("../../../middlewares/v2/auth");
 const reportController = require("../../../controllers/v2/reportUserController");
 
 const router = express.Router();
 
+//Media
+
+router.post(
+    "/media-overview",
+    // AuthMiddleware.protect,
+    // AuthMiddleware.restrictTo("admin"),
+    MediaOverviewController.updateMediaOverview
+); /// dont forget to move this to another controller - articleController
+
 router.get(
-    "/blocked-users", //unblockUser getBlockedUser
+    "/media-overview",
+    AuthMiddleware.protect,
+    AuthMiddleware.restrictTo("admin"),
+    MediaOverviewController.getWeeklyMediaTrends
+);
+
+router.get(
+    "/blocked-users",
     AuthMiddleware.protect,
     AuthMiddleware.restrictTo("admin"),
     adminontroller.getBlockedUsers

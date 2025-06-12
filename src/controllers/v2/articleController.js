@@ -16,6 +16,9 @@ const Comment = require("../../models/v2/Comment");
  * @param {SocketIO.Socket} townSquareSocket - The Socket.IO instance used for real-time communication.
  * @returns {Object} - An object containing various controller functions for articles, comments, and likes.
  */
+
+
+
 module.exports = (townSquareSocket) => {
     townSquareSocket.on("connection", (socket) => {
         AppLogger.info("A user connected to town square");
@@ -33,6 +36,7 @@ module.exports = (townSquareSocket) => {
                 data: article,
             });
         }),
+
         getArtciles: Factory.getAll(Article),
         getArticle: Factory.get(Article),
         updateArticle: asyncHandler(async (req, res, next) => {

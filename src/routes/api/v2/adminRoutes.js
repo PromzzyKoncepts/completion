@@ -1,9 +1,34 @@
 const express = require("express");
 const adminontroller = require("../../../controllers/v2/adminController");
+const MediaOverviewController = require("../../../controllers/v2/mediaOverviewController");
 const AuthMiddleware = require("../../../middlewares/v2/auth");
 const reportController = require("../../../controllers/v2/reportUserController");
 
 const router = express.Router();
+
+//Media
+
+
+router.get(
+    "/media-overview",
+    AuthMiddleware.protect,
+    AuthMiddleware.restrictTo("admin"),
+    MediaOverviewController.getWeeklyMediaTrends
+);
+
+router.get(
+    "/blocked-users",
+    AuthMiddleware.protect,
+    AuthMiddleware.restrictTo("admin"),
+    adminontroller.getBlockedUsers
+);
+
+router.get(
+    "/blocked-user", //unblockUser getBlockedUser
+    AuthMiddleware.protect,
+    AuthMiddleware.restrictTo("admin"),
+    adminontroller.getBlockedUser
+);
 
 router.patch(
     "/user-unblock", //unblockUser

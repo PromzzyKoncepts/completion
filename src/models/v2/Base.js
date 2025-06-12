@@ -76,6 +76,9 @@ const baseSchema = new mongoose.Schema(
             reason: {
                 type: String,
             },
+            reportedItem: {
+                type: String, //Convo : "" || Comment: ""
+            },
             type: {
                 type: String,
                 enum: ["None", "1 week", "2 weeks", "1 month", "Permanent"],

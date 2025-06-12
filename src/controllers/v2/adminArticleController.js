@@ -1,6 +1,7 @@
 const asyncHandler = require("../../middlewares/asyncHandler");
 const AppError = require("../../utils/appError");
 const Media = require("../../models/v2/AdminArticle");
+const Article = require("../../models/v2/Article");
 const Topic = require("../../models/v2/Topic");
 const ApiResponse = require("../../utils/ApiResponse");
 const AppLogger = require("../../middlewares/logger/logger");
@@ -154,3 +155,4 @@ exports.deleteArticle = asyncHandler(async (req, res, next) => {
         return ApiResponse.error(res, "Error deleting article");
     }
 });
+

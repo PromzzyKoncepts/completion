@@ -9,6 +9,12 @@ router.post(
     AuthController.signup
 );
 
+router.patch(
+    "/users/push-token",
+    AuthMiddleware.protect,
+    AuthMiddleware.validatePushToken,
+    AuthController.updatePushToken
+);
 
 router.post(
     "/resend-email-verification-code",
@@ -69,7 +75,7 @@ router.post(
     AuthController.activateEntity
 );
 
-router.post(
+router.delete(
     "/delete-user",
     AuthMiddleware.protect,
     AuthController.deleteUser

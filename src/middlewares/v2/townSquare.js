@@ -7,7 +7,7 @@ exports.validateAddTopic = JoiRequestBodyValidator(
     description: Joi.string().required(),
     colorCode: Joi.string().pattern(/^#([0-9A-F]{6}|[0-9A-F]{3})$/i).required(),
     imageUrl: Joi.string().optional(),
-    icon: Joi.string().required(),
+    // icon: Joi.string().required(),
     tipsAndGuidelines: Joi.array().items(
       Joi.object({
         icon: Joi.string().required(),
@@ -23,7 +23,6 @@ exports.validateConvoReaction = JoiRequestBodyValidator(
     reaction: Joi.string().valid("like", "love", "haha", "wow", "sad", "angry").required(),
   })
 )
-
 exports.validateAddConvo = JoiRequestBodyValidator(
   Joi.object({
     type: Joi.string().valid("post", "question").required(), // Only 'post' or 'question' allowed

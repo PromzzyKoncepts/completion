@@ -1,2820 +1,2732 @@
 {
-  "openapi": "3.0.0",
-  "info": {
-    "title": "V2 Updated",
-    "version": "1.0.0",
-    "description": ""
-  },
-  "servers": [
-    {
-      "url": "{{Base}}"
+    "openapi": "3.0.0",
+    "info": {
+        "title": "V2 Updated",
+        "version": "1.0.0",
+        "description": ""
     },
-    {
-      "url": "{{BASE_URL}}"
-    }
-  ],
-  "paths": {
-    "/{{api}}/{{route}}/users/signup": {
-      "parameters": [],
-      "post": {
-        "summary": "Sign Up",
-        "parameters": [],
-        "responses": {
-          "default": {
-            "headers": {},
-            "description": "Counsellor Sign Up"
-          }
+    "servers": [
+        {
+            "url": "https://positiveo-backend.herokuapp.com"
         },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "firstName": {
-                    "type": "string"
-                  },
-                  "lastName": {
-                    "type": "string"
-                  },
-                  "email": {
-                    "type": "string"
-                  },
-                  "password": {
-                    "type": "string"
-                  },
-                  "accountType": {
-                    "type": "string"
-                  },
-                  "pushToken": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
+        {
+            "url": "http://localhost:5009"
         }
-      }
-    },
-    "/{{api}}/{{route}}/resend-email-verification-code": {
-      "parameters": [],
-      "post": {
-        "summary": "Resent Email Verification Code",
-        "parameters": [],
-        "responses": {},
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/{{api}}/{{route}}/login": {
-      "parameters": [],
-      "post": {
-        "summary": "Login",
-        "parameters": [],
-        "responses": {
-          "default": {
-            "headers": {},
-            "description": "Login"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "email": {
-                    "type": "string"
-                  },
-                  "password": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/{{api}}/{{route}}/deactivate-user": {
-      "parameters": [],
-      "post": {
-        "summary": "Deactivate user",
-        "parameters": [],
-        "responses": {
-          "default": {
-            "headers": {},
-            "description": "Deactivate user"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "reason": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/{{api}}/{{route}}/delete-user": {
-      "parameters": [],
-      "post": {
-        "summary": "Delete User",
-        "parameters": [],
-        "responses": {
-          "default": {
-            "headers": {},
-            "description": "Delete User"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "reason": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/{{api}}/{{route}}/forgot-pwd": {
-      "parameters": [],
-      "post": {
-        "summary": "Forgot Password",
-        "parameters": [],
-        "responses": {
-          "default": {
-            "headers": {},
-            "description": "Forgot Password"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "email": {
-                    "type": "string",
-                    "format": "email"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/{{api}}/{{route}}/reset-pwd": {
-      "parameters": [],
-      "patch": {
-        "summary": "Reset Password",
-        "parameters": [],
-        "responses": {
-          "default": {
-            "headers": {},
-            "description": "Reset Password"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "code": {
-                    "type": "string"
-                  },
-                  "password": {
-                    "type": "string"
-                  },
-                  "passwordConfirm": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/{{api}}/{{route}}/update-pwd": {
-      "parameters": [],
-      "patch": {
-        "summary": "Update Password",
-        "parameters": [],
-        "responses": {
-          "default": {
-            "headers": {},
-            "description": "Update Password"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "currentPassword": {
-                    "type": "string"
-                  },
-                  "newPassword": {
-                    "type": "string"
-                  },
-                  "newPasswordConfirm": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/{{api}}/{{route}}/google": {
-      "parameters": [],
-      "get": {
-        "summary": "Google Login",
-        "parameters": [],
-        "responses": {},
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object"
-              }
-            }
-          }
-        }
-      }
-    },
-    "/{{api}}/{{route}}/feedback": {
-      "parameters": [],
-      "post": {
-        "summary": "Post Feedback",
-        "parameters": [],
-        "responses": {
-          "default": {
-            "headers": {},
-            "description": "Post Feedback"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "comment": {
-                    "type": "string"
-                  },
-                  "rating": {
-                    "type": "integer"
-                  },
-                  "userRated": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "get": {
-        "summary": "Feedback",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}/serviceuser/profile_setup": {
-      "parameters": [],
-      "patch": {
-        "summary": "Profile_Setup [serviceuser]",
-        "parameters": [],
-        "responses": {
-          "default": {
-            "headers": {},
-            "description": "Profile_Setup [serviceuser]"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "birthday": {
-                    "type": "string",
-                    "format": "date"
-                  },
-                  "gender": {
-                    "type": "string"
-                  },
-                  "username": {
-                    "type": "string"
-                  },
-                  "accountPrivacy": {
-                    "type": "string"
-                  },
-                  "turnOnNotification": {
-                    "type": "boolean"
-                  },
-                  "nationality": {
-                    "type": "string"
-                  },
-                  "interestedTopics": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
+    ],
+    "paths": {
+        "/api/v2/auth/users/signup": {
+            "parameters": [],
+            "post": {
+                "summary": "Sign Up",
+                "parameters": [],
+                "responses": {
+                    "default": {
+                        "headers": {},
+                        "description": "Counsellor Sign Up"
                     }
-                  },
-                  "profilePicture": {
-                    "type": "object",
-                    "properties": {
-                      "url": {
-                        "type": "string",
-                        "format": "uri"
-                      },
-                      "reference": {
-                        "type": "string"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/{{api}}/{{route}}/counsellors": {
-      "parameters": [],
-      "get": {
-        "summary": "Get Counsellors",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}/counsellor/profile_setup": {
-      "parameters": [],
-      "patch": {
-        "summary": "Profile_Setup [counsellor]",
-        "parameters": [],
-        "responses": {},
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "birthday": {
-                    "type": "string",
-                    "format": "date"
-                  },
-                  "gender": {
-                    "type": "string"
-                  },
-                  "username": {
-                    "type": "string"
-                  },
-                  "accountPrivacy": {
-                    "type": "string"
-                  },
-                  "turnOnNotification": {
-                    "type": "boolean"
-                  },
-                  "nationality": {
-                    "type": "string"
-                  },
-                  "interestedTopics": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    }
-                  },
-                  "profilePicture": {
-                    "type": "object",
-                    "properties": {
-                      "url": {
-                        "type": "string",
-                        "format": "uri"
-                      },
-                      "reference": {
-                        "type": "string"
-                      }
-                    }
-                  },
-                  "qualifications": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "url": {
-                          "type": "string",
-                          "format": "uri"
-                        },
-                        "reference": {
-                          "type": "string"
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/{{api}}/{{route}}/counsellor/info": {
-      "parameters": [],
-      "patch": {
-        "summary": "Counsellor Info",
-        "parameters": [],
-        "responses": {},
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "bio": {
-                    "type": "string"
-                  },
-                  "sessionType": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    }
-                  },
-                  "specializedSupport": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    }
-                  },
-                  "focusArea": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    }
-                  },
-                  "commencePractice": {
-                    "type": "string",
-                    "format": "utc-millisec"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/{{api}}/{{route}}/counsellor/schedule": {
-      "parameters": [],
-      "patch": {
-        "summary": "Update Counsellor Schedule",
-        "parameters": [],
-        "responses": {},
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "schedule": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "dayOfWeek": {
-                          "type": "string"
-                        },
-                        "availability": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "from": {
-                                "type": "string",
-                                "format": "style"
-                              },
-                              "to": {
-                                "type": "string"
-                              }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "firstName": {
+                                        "type": "string"
+                                    },
+                                    "lastName": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "accountType": {
+                                        "type": "string"
+                                    },
+                                    "pushToken": {
+                                        "type": "string"
+                                    }
+                                }
                             }
-                          }
                         }
-                      }
                     }
-                  }
                 }
-              }
             }
-          }
-        }
-      }
-    },
-    "/{{api}}/{{route}}/patients": {
-      "parameters": [],
-      "get": {
-        "summary": "Get patients",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}/verify-phone-code": {
-      "parameters": [],
-      "post": {
-        "summary": "Send  Phone Verify code",
-        "parameters": [],
-        "responses": {
-          "default": {
-            "headers": {},
-            "description": "Send  Phone Verify code"
-          }
         },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "phoneNumber": {
-                    "type": "string",
-                    "format": "utc-millisec"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/{{api}}/{{route}}/update-user-email": {
-      "parameters": [],
-      "post": {
-        "summary": "Update User email",
-        "parameters": [],
-        "responses": {
-          "default": {
-            "headers": {},
-            "description": "Update User email"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "newEmail": {
-                    "type": "string",
-                    "format": "email"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/{{api}}/{{route}}/update-user-country": {
-      "parameters": [],
-      "post": {
-        "summary": "Update User Country",
-        "parameters": [],
-        "responses": {
-          "default": {
-            "headers": {},
-            "description": "Update User Country"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "country": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/{{api}}/{{route}}/me": {
-      "parameters": [],
-      "get": {
-        "summary": "Get User Details",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}/verify-phone": {
-      "parameters": [],
-      "patch": {
-        "summary": "Verify PhoneNumber",
-        "parameters": [],
-        "responses": {
-          "default": {
-            "headers": {},
-            "description": "Verify PhoneNumber"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "phoneNumber": {
-                    "type": "string",
-                    "format": "utc-millisec"
-                  },
-                  "code": {
-                    "type": "string",
-                    "format": "utc-millisec"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/{{api}}/{{route}}/username/{username}": {
-      "parameters": [
-        {
-          "name": "username",
-          "in": "path",
-          "required": true,
-          "example": "kds",
-          "schema": {
-            "type": "string"
-          }
-        }
-      ],
-      "get": {
-        "summary": "Check Username Availability",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}/username": {
-      "parameters": [],
-      "patch": {
-        "summary": "update username",
-        "parameters": [],
-        "responses": {
-          "default": {
-            "headers": {},
-            "description": "update username"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "newUsername": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/{{api}}/{{route}}/suggest-username": {
-      "parameters": [],
-      "get": {
-        "summary": "suggest usernames",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}/update_name": {
-      "parameters": [],
-      "patch": {
-        "summary": "Update name",
-        "parameters": [],
-        "responses": {
-          "default": {
-            "headers": {},
-            "description": "Update name"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "firstname": {
-                    "type": "string"
-                  },
-                  "lastname": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/{{api}}/{{route}}/update_password": {
-      "parameters": [],
-      "patch": {
-        "summary": "Update password",
-        "parameters": [],
-        "responses": {
-          "default": {
-            "headers": {},
-            "description": "Update password"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "currentPassword": {
-                    "type": "string"
-                  },
-                  "newPassword": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/{{api}}/{{route}}/update-profile-picture": {
-      "parameters": [],
-      "patch": {
-        "summary": "Update Profile Picture",
-        "parameters": [],
-        "responses": {
-          "default": {
-            "headers": {},
-            "description": "Update Profile Picture"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "profilePicture": {
-                    "type": "string",
-                    "format": "uri"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/{{api}}/{{route}}/notification-settings": {
-      "parameters": [],
-      "get": {
-        "summary": "Notifications",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}/update-notification-settings": {
-      "parameters": [],
-      "patch": {
-        "summary": "Update Notification Settings",
-        "parameters": [],
-        "responses": {
-          "default": {
-            "headers": {},
-            "description": "Update Notification Settings"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "pushConvoEngagement": {
-                    "type": "boolean"
-                  },
-                  "emailConvoEngagement": {
-                    "type": "boolean"
-                  },
-                  "pushNewConvo": {
-                    "type": "boolean"
-                  },
-                  "emailNewConvo": {
-                    "type": "boolean"
-                  },
-                  "pushRescheduleRequest": {
-                    "type": "boolean"
-                  },
-                  "emailRescheduleRequest": {
-                    "type": "boolean"
-                  },
-                  "commentReplies": {
-                    "type": "boolean"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/{{api}}/{{route}}/privacy-settings": {
-      "parameters": [],
-      "get": {
-        "summary": "Privacy Settings",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}/update-privacy-settings": {
-      "parameters": [],
-      "patch": {
-        "summary": "Update Privacy Settings",
-        "parameters": [],
-        "responses": {
-          "default": {
-            "headers": {},
-            "description": "Update Privacy Settings"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "showName": {
-                    "type": "boolean"
-                  },
-                  "showProfilePic": {
-                    "type": "boolean"
-                  },
-                  "showMoodChart": {
-                    "type": "boolean"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/{{api}}/{{route}}/verify-email": {
-      "parameters": [],
-      "post": {
-        "summary": "verify-email",
-        "parameters": [],
-        "responses": {
-          "default": {
-            "headers": {},
-            "description": "verify-email"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "code": {
-                    "type": "string",
-                    "format": "utc-millisec"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "get": {
-        "summary": "send-email-verification",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}/verify-user-email": {
-      "parameters": [],
-      "post": {
-        "summary": "Verify new email",
-        "parameters": [],
-        "responses": {
-          "default": {
-            "headers": {},
-            "description": "Verify new email"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "newEmail": {
-                    "type": "string",
-                    "format": "email"
-                  },
-                  "verificationCode": {
-                    "type": "string",
-                    "format": "utc-millisec"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/{{api}}/{{route}}/update-gender": {
-      "parameters": [],
-      "patch": {
-        "summary": "Update gender",
-        "parameters": [],
-        "responses": {
-          "default": {
-            "headers": {},
-            "description": "Update gender"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "gender": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/{{api}}/{{route}}/counsellor/profile/{counsellorId}": {
-      "parameters": [
-        {
-          "name": "counsellorId",
-          "in": "path",
-          "required": true,
-          "example": "67a5b22b607751bc2dfbd656",
-          "schema": {
-            "type": "integer"
-          }
-        }
-      ],
-      "get": {
-        "summary": "Get Counsellor profile by ID",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}/{id}/user": {
-      "parameters": [
-        {
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "example": "66e6e3954e5cc6001597f886",
-          "schema": {
-            "type": "integer"
-          }
-        }
-      ],
-      "get": {
-        "summary": "Get User by ID",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}/mood-categories": {
-      "parameters": [],
-      "get": {
-        "summary": "Mood Categories",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}/log-mood": {
-      "parameters": [],
-      "post": {
-        "summary": "Log User Mood",
-        "parameters": [],
-        "responses": {
-          "default": {
-            "headers": {},
-            "description": "Log User Mood"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "category": {
-                    "type": "string"
-                  },
-                  "emotion": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    }
-                  },
-                  "note": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/{{api}}/{{route}}/mood-journal": {
-      "parameters": [],
-      "get": {
-        "summary": "Mood Journal",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}/mood-log-last-7-days": {
-      "parameters": [],
-      "get": {
-        "summary": "Mood log last 7 days",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}/mood-log/{period}": {
-      "parameters": [
-        {
-          "name": "period",
-          "in": "path",
-          "required": true,
-          "example": "Y",
-          "schema": {
-            "type": "string"
-          }
-        }
-      ],
-      "get": {
-        "summary": "Mood Journal per period",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}/create": {
-      "parameters": [],
-      "post": {
-        "summary": "Create Session",
-        "parameters": [],
-        "responses": {
-          "default": {
-            "headers": {},
-            "description": "Create Session"
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "startTime": {
-                    "type": "string",
-                    "format": "date-time"
-                  },
-                  "duration": {
-                    "type": "integer"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/{{api}}/{{route}}/summary": {
-      "parameters": [],
-      "get": {
-        "summary": "Summary",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}/today": {
-      "parameters": [],
-      "get": {
-        "summary": "ThoughtOfTheDay",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}//track-view/{id}": {
-      "parameters": [
-        {
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "example": "66c1029494146d8819baaf88",
-          "schema": {
-            "type": "integer"
-          }
-        }
-      ],
-      "post": {
-        "summary": "Track View",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}/track-share/{id}": {
-      "parameters": [
-        {
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "example": "66c1029494146d8819baaf88",
-          "schema": {
-            "type": "integer"
-          }
-        }
-      ],
-      "post": {
-        "summary": "Track Share",
-        "parameters": [],
-        "responses": {},
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "platform": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/{{api}}/{{route}}/{id}/rooms": {
-      "parameters": [
-        {
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        }
-      ],
-      "post": {
-        "summary": "create room",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}/rooms/{roomId}": {
-      "parameters": [
-        {
-          "name": "roomId",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        }
-      ],
-      "get": {
-        "summary": "get room",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}/rooms/{roomId}/validate": {
-      "parameters": [
-        {
-          "name": "roomId",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        }
-      ],
-      "get": {
-        "summary": "validate room",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}/rooms/{roomId}/deactivate": {
-      "parameters": [
-        {
-          "name": "roomId",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        }
-      ],
-      "get": {
-        "summary": "deactivate room",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}/{sessionId}/categories": {
-      "parameters": [
-        {
-          "name": "sessionId",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        }
-      ],
-      "post": {
-        "summary": "create category",
-        "parameters": [],
-        "responses": {}
-      },
-      "get": {
-        "summary": "get categories",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}/{sessionId}/categories/{id}": {
-      "parameters": [
-        {
-          "name": "sessionId",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        },
-        {
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        }
-      ],
-      "get": {
-        "summary": "get category",
-        "parameters": [],
-        "responses": {}
-      },
-      "patch": {
-        "summary": "update category",
-        "parameters": [],
-        "responses": {}
-      },
-      "delete": {
-        "summary": "delete category",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}/{sessionId}/reviews": {
-      "parameters": [
-        {
-          "name": "sessionId",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        }
-      ],
-      "post": {
-        "summary": "create review",
-        "parameters": [],
-        "responses": {},
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "session": {
-                    "type": "string"
-                  },
-                  "user": {
-                    "type": "string"
-                  },
-                  "leader": {
-                    "type": "string"
-                  },
-                  "rating": {
-                    "type": "integer"
-                  },
-                  "review": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/{{api}}/{{route}}/{sessionId}/reviews/{id}": {
-      "parameters": [
-        {
-          "name": "sessionId",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        },
-        {
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        }
-      ],
-      "get": {
-        "summary": "get review",
-        "parameters": [],
-        "responses": {}
-      },
-      "patch": {
-        "summary": "update review",
-        "parameters": [],
-        "responses": {},
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object"
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "summary": "delete review",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}": {
-      "parameters": [],
-      "post": {
-        "summary": "create",
-        "parameters": [],
-        "responses": {},
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "title": {
-                    "type": "string"
-                  },
-                  "startTime": {
-                    "type": "string"
-                  },
-                  "endTime": {
-                    "type": "string"
-                  },
-                  "description": {
-                    "type": "string"
-                  },
-                  "interactionType": {
-                    "type": "string"
-                  },
-                  "assistanceType": {
-                    "type": "string"
-                  },
-                  "topics": {
-                    "type": "string"
-                  },
-                  "emotionalState": {
-                    "type": "string"
-                  },
-                  "copingMechanisms": {
-                    "type": "string"
-                  },
-                  "expectations": {
-                    "type": "string"
-                  },
-                  "specialisedCounselling": {
-                    "type": "string"
-                  },
-                  "supportSystem": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "get": {
-        "summary": "get a session",
-        "parameters": [],
-        "responses": {}
-      },
-      "socket.io": {
-        "summary": "town square connection",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}/{id}": {
-      "parameters": [
-        {
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "example": "684053a400e2a900150ade84",
-          "schema": {
-            "type": "integer"
-          }
-        }
-      ],
-      "patch": {
-        "summary": "update a session",
-        "parameters": [],
-        "responses": {},
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "topics": {
-                    "type": "string"
-                  },
-                  "interactionType": {
-                    "type": "string"
-                  },
-                  "startTime": {
-                    "type": "string"
-                  },
-                  "endTime": {
-                    "type": "string"
-                  },
-                  "description": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        }
-      },
-      "delete": {
-        "summary": "delete a session",
-        "parameters": [],
-        "responses": {}
-      },
-      "get": {
-        "summary": "Get an Assessment",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/api/v2/sessions": {
-      "parameters": [],
-      "socket.io": {
-        "summary": "sessions chat connection",
-        "parameters": [
-          {
-            "name": "channelName",
-            "in": "query",
-            "required": false,
-            "example": "ChatChannelName",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "from",
-            "in": "query",
-            "required": false,
-            "example": "fromValue",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}/user": {
-      "parameters": [],
-      "get": {
-        "summary": "get current user’s sessions",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}/leader": {
-      "parameters": [],
-      "get": {
-        "summary": "get current leader’s sessions",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}/{id}/user/joined": {
-      "parameters": [
-        {
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        }
-      ],
-      "post": {
-        "summary": "set user joined",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}/{id}/leader/joined": {
-      "parameters": [
-        {
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        }
-      ],
-      "post": {
-        "summary": "set leader joined",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}/{sessionsId}/respond": {
-      "parameters": [
-        {
-          "name": "sessionsId",
-          "in": "path",
-          "required": true,
-          "example": "6711236d9039856f974340f9",
-          "schema": {
-            "type": "integer"
-          }
-        }
-      ],
-      "post": {
-        "summary": "respond to session",
-        "parameters": [],
-        "responses": {},
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "accepted": {
-                    "type": "boolean"
-                  },
-                  "reason": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/{{api}}/{{route}}/{id}/selfassign": {
-      "parameters": [
-        {
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        }
-      ],
-      "post": {
-        "summary": "self assign session",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}/search": {
-      "parameters": [],
-      "post": {
-        "summary": "Search for counsellors for a session",
-        "parameters": [],
-        "responses": {},
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "topics": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    }
-                  },
-                  "specialty": {
-                    "type": "string"
-                  },
-                  "genderPreference": {
-                    "type": "string"
-                  },
-                  "sessionType": {
-                    "type": "string"
-                  },
-                  "cityOfResidence": {
-                    "type": "string"
-                  },
-                  "countryOfResidence": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/{{api}}/{{route}}/upcoming": {
-      "parameters": [],
-      "get": {
-        "summary": "Get a User's Upcoming Sessions with Counsellor",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}/history": {
-      "parameters": [],
-      "get": {
-        "summary": "Get a User's Session History",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}/rate/671123809039856f97434101": {
-      "parameters": [],
-      "post": {
-        "summary": "Rate a session",
-        "parameters": [],
-        "responses": {},
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "rating": {
-                    "type": "integer"
-                  },
-                  "notes": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/{{api}}/{{route}}/user/all": {
-      "parameters": [],
-      "get": {
-        "summary": "Get All of a User's Sessions",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}/month": {
-      "parameters": [],
-      "get": {
-        "summary": "Get User's Sessions for the Month",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}/{sessionId}/history": {
-      "parameters": [
-        {
-          "name": "sessionId",
-          "in": "path",
-          "required": true,
-          "example": "66eb00580f682a4d8e4e5ae1",
-          "schema": {
-            "type": "integer"
-          }
-        }
-      ],
-      "get": {
-        "summary": "Get Session History by User ID",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}/cancel/{sessionId}": {
-      "parameters": [
-        {
-          "name": "sessionId",
-          "in": "path",
-          "required": true,
-          "example": "675454eee302baffbe61a2e9",
-          "schema": {
-            "type": "integer"
-          }
-        }
-      ],
-      "patch": {
-        "summary": "Cancel a Session",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}/reschedule/675454eee302baffbe61a2e9/67261d790d345608558d1155": {
-      "parameters": [],
-      "patch": {
-        "summary": "Reschedule a Session",
-        "parameters": [],
-        "responses": {},
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "duration": {
-                    "type": "integer"
-                  },
-                  "session": {
-                    "type": "object",
-                    "properties": {
-                      "title": {
-                        "type": "string"
-                      },
-                      "description": {
-                        "type": "string"
-                      },
-                      "interactionType": {
-                        "type": "string"
-                      }
-                    }
-                  },
-                  "intakeResponse": {
-                    "type": "object",
-                    "properties": {
-                      "topics": {
-                        "type": "string"
-                      },
-                      "emotionalState": {
-                        "type": "string"
-                      },
-                      "copingMechanisms": {
-                        "type": "string"
-                      },
-                      "expectations": {
-                        "type": "string"
-                      },
-                      "specialisedCounselling": {
-                        "type": "string"
-                      },
-                      "sameGenderPreference": {
-                        "type": "string"
-                      },
-                      "supportSystem": {
-                        "type": "string"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v2/slots/{id}": {
-      "parameters": [
-        {
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        }
-      ],
-      "get": {
-        "summary": "get",
-        "parameters": [],
-        "responses": {}
-      },
-      "patch": {
-        "summary": "update",
-        "parameters": [],
-        "responses": {}
-      },
-      "delete": {
-        "summary": "delete slot",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/api/v2/slots": {
-      "parameters": [],
-      "get": {
-        "summary": "get all",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/api/v2/slots/availability": {
-      "parameters": [],
-      "get": {
-        "summary": "check availabilty",
-        "parameters": [],
-        "responses": {},
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "currentTime": {
-                    "type": "string",
-                    "format": "style"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v2/slots/68068a024c6e4c5d5424cc4d/book": {
-      "parameters": [],
-      "post": {
-        "summary": "book slot",
-        "parameters": [],
-        "responses": {},
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "duration": {
-                    "type": "integer"
-                  },
-                  "session": {
-                    "type": "object",
-                    "properties": {
-                      "title": {
-                        "type": "string"
-                      },
-                      "description": {
-                        "type": "string"
-                      },
-                      "interactionType": {
-                        "type": "string"
-                      }
-                    }
-                  },
-                  "intakeResponse": {
-                    "type": "object",
-                    "properties": {
-                      "topics": {
-                        "type": "string"
-                      },
-                      "emotionalState": {
-                        "type": "string"
-                      },
-                      "copingMechanisms": {
-                        "type": "string"
-                      },
-                      "expectations": {
-                        "type": "string"
-                      },
-                      "specialisedCounselling": {
-                        "type": "string"
-                      },
-                      "sameGenderPreference": {
-                        "type": "string"
-                      },
-                      "supportSystem": {
-                        "type": "string"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/v2/slots/{id}/assign": {
-      "parameters": [
-        {
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        }
-      ],
-      "patch": {
-        "summary": "assign slot appointment",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/api/v2/slots/counsellor/6710d9fdcfda663fecda0dc6": {
-      "parameters": [],
-      "get": {
-        "summary": "Get a Counsellor's Free Slots",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}/{userId}/{assessmentId}": {
-      "parameters": [
-        {
-          "name": "userId",
-          "in": "path",
-          "required": true,
-          "example": "66e6e3954e5cc6001597f886",
-          "schema": {
-            "type": "integer"
-          }
-        },
-        {
-          "name": "assessmentId",
-          "in": "path",
-          "required": true,
-          "example": "68405a9bd302d84b99f1fdca",
-          "schema": {
-            "type": "integer"
-          }
-        }
-      ],
-      "get": {
-        "summary": "Get User Response to Specific Assessment",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}/{responseId}": {
-      "parameters": [
-        {
-          "name": "responseId",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        }
-      ],
-      "get": {
-        "summary": "Get User's Response",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}/accept/{id}": {
-      "parameters": [
-        {
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "example": "683b5bb45538e900155f2dbd",
-          "schema": {
-            "type": "integer"
-          }
-        }
-      ],
-      "patch": {
-        "summary": "Accept a Chat Request",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}/topic": {
-      "parameters": [],
-      "post": {
-        "summary": "Add a Topic(Admin)",
-        "parameters": [],
-        "responses": {},
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "title": {
-                    "type": "string"
-                  },
-                  "description": {
-                    "type": "string"
-                  },
-                  "colorCode": {
-                    "type": "string",
-                    "format": "color"
-                  },
-                  "icon": {
-                    "type": "string"
-                  },
-                  "tipsAndGuidelines": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "title": {
-                          "type": "string"
-                        },
-                        "description": {
-                          "type": "string"
-                        },
-                        "icon": {
-                          "type": "string"
+        "/api/v2/auth/resend-email-verification-code": {
+            "parameters": [],
+            "post": {
+                "summary": "Resent Email Verification Code",
+                "parameters": [],
+                "responses": {},
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object"
+                            }
                         }
-                      }
                     }
-                  }
                 }
-              }
             }
-          }
-        }
-      },
-      "get": {
-        "summary": "Get Topics",
-        "parameters": [],
-        "responses": {
-          "default": {
-            "headers": {},
-            "description": "Queries"
-          }
-        }
-      }
-    },
-    "/{{api}}/{{route}}/topic/{id}": {
-      "parameters": [
-        {
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "example": "66e08b043a4f47001500d841",
-          "schema": {
-            "type": "integer"
-          }
-        }
-      ],
-      "get": {
-        "summary": "Get Topic Details",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}/topic/{id}/mute": {
-      "parameters": [
-        {
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "example": "66e08b043a4f47001500d841",
-          "schema": {
-            "type": "integer"
-          }
-        }
-      ],
-      "patch": {
-        "summary": "Mute a Topic",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}/topic/{id}/join": {
-      "parameters": [
-        {
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "example": "66e08b043a4f47001500d841",
-          "schema": {
-            "type": "integer"
-          }
-        }
-      ],
-      "patch": {
-        "summary": "Join a Topic",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}/topic/{id}/leave": {
-      "parameters": [
-        {
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "example": "66e08b043a4f47001500d841",
-          "schema": {
-            "type": "integer"
-          }
-        }
-      ],
-      "patch": {
-        "summary": "Leave a Topic",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}/convo/{convoId}/comment": {
-      "parameters": [
-        {
-          "name": "convoId",
-          "in": "path",
-          "required": true,
-          "example": "67502d605424c40015b58625",
-          "schema": {
-            "type": "integer"
-          }
-        }
-      ],
-      "get": {
-        "summary": "Get Convo Comments",
-        "parameters": [],
-        "responses": {}
-      },
-      "post": {
-        "summary": "Comment on Convo",
-        "parameters": [],
-        "responses": {},
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "content": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/{{api}}/{{route}}/convo/comment/{commentId}/like": {
-      "parameters": [
-        {
-          "name": "commentId",
-          "in": "path",
-          "required": true,
-          "example": "68409bc58ae48147d50b935a",
-          "schema": {
-            "type": "integer"
-          }
-        }
-      ],
-      "post": {
-        "summary": "Like a Convo Comment",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}/convo/comment/{convoId}/reply": {
-      "parameters": [
-        {
-          "name": "convoId",
-          "in": "path",
-          "required": true,
-          "example": "67502d605424c40015b58625",
-          "schema": {
-            "type": "integer"
-          }
-        }
-      ],
-      "post": {
-        "summary": "Reply Convo Comment",
-        "parameters": [],
-        "responses": {},
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "content": {
-                    "type": "string"
-                  },
-                  "parentComment": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/{{api}}/{{route}}/convo/{topicId}": {
-      "parameters": [
-        {
-          "name": "topicId",
-          "in": "path",
-          "required": true,
-          "example": "66e08b043a4f47001500d841",
-          "schema": {
-            "type": "integer"
-          }
-        }
-      ],
-      "post": {
-        "summary": "Create a Convo",
-        "parameters": [],
-        "responses": {
-          "default": {
-            "headers": {},
-            "description": "Create Question"
-          }
         },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "title": {
-                    "type": "string"
-                  },
-                  "type": {
-                    "type": "string"
-                  },
-                  "body": {
-                    "type": "string"
-                  },
-                  "imageUrl": {
-                    "type": "string"
-                  }
+        "/api/v2/auth/login": {
+            "parameters": [],
+            "post": {
+                "summary": "Login",
+                "parameters": [],
+                "responses": {
+                    "default": {
+                        "headers": {},
+                        "description": "Login"
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
-              }
             }
-          }
-        }
-      }
-    },
-    "/{{api}}/{{route}}/convo/{id}/join": {
-      "parameters": [
-        {
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "example": "67502d605424c40015b58625",
-          "schema": {
-            "type": "integer"
-          }
-        }
-      ],
-      "patch": {
-        "summary": "Join A Convo",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}/convo/{convoid}/leave": {
-      "parameters": [
-        {
-          "name": "convoid",
-          "in": "path",
-          "required": true,
-          "example": "67502d605424c40015b58625",
-          "schema": {
-            "type": "integer"
-          }
-        }
-      ],
-      "patch": {
-        "summary": "Leave a Convo",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}/convo/{id}/report": {
-      "parameters": [
-        {
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "example": "67502d605424c40015b58625",
-          "schema": {
-            "type": "integer"
-          }
-        }
-      ],
-      "post": {
-        "summary": "Report Convo",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}/convo/{convoId}/reaction": {
-      "parameters": [
-        {
-          "name": "convoId",
-          "in": "path",
-          "required": true,
-          "example": "67502d605424c40015b58625",
-          "schema": {
-            "type": "integer"
-          }
-        }
-      ],
-      "post": {
-        "summary": "React to a Convo",
-        "parameters": [],
-        "responses": {},
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "reaction": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/{{api}}/{{route}}/convo": {
-      "parameters": [],
-      "get": {
-        "summary": "Get Convos",
-        "parameters": [
-          {
-            "name": "topic",
-            "in": "query",
-            "required": false,
-            "example": "Grief",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "default": {
-            "headers": {},
-            "description": "Queries"
-          }
-        }
-      }
-    },
-    "/{{api}}/{{route}}/convo/me": {
-      "parameters": [],
-      "get": {
-        "summary": "Get My Convos",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}/media/{topicId}": {
-      "parameters": [
-        {
-          "name": "topicId",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        }
-      ],
-      "post": {
-        "summary": "Create Media(Admin)",
-        "parameters": [],
-        "responses": {
-          "default": {
-            "headers": {},
-            "description": "Article"
-          }
         },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "title": {
-                    "type": "string"
-                  },
-                  "type": {
-                    "type": "string"
-                  },
-                  "content": {
-                    "type": "string"
-                  },
-                  "featuredImage": {
-                    "type": "string"
-                  },
-                  "duration": {
-                    "type": "string"
-                  }
+        "/api/v2/auth/deactivate-user": {
+            "parameters": [],
+            "post": {
+                "summary": "Deactivate user",
+                "parameters": [],
+                "responses": {
+                    "default": {
+                        "headers": {},
+                        "description": "Deactivate user"
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "reason": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
-              }
             }
-          }
-        }
-      }
-    },
-    "/{{api}}/{{route}}/media": {
-      "parameters": [],
-      "get": {
-        "summary": "Get Meida",
-        "parameters": [
-          {
-            "name": "type",
-            "in": "query",
-            "required": false,
-            "example": "article",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "default": {
-            "headers": {},
-            "description": "Queries"
-          }
-        }
-      }
-    },
-    "/{{api}}/{{route}}/media/{id}/report": {
-      "parameters": [
-        {
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "example": "675c01d03a4243001523f21f",
-          "schema": {
-            "type": "integer"
-          }
-        }
-      ],
-      "post": {
-        "summary": "Report Media",
-        "parameters": [],
-        "responses": {},
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "reason": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/{{api}}/{{route}}/media/{id}/comment": {
-      "parameters": [
-        {
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "example": "675c01d03a4243001523f21f",
-          "schema": {
-            "type": "integer"
-          }
-        }
-      ],
-      "post": {
-        "summary": "Comment on Media",
-        "parameters": [],
-        "responses": {},
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "content": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/{{api}}/{{route}}/media/{mediaId}/comment/{commentId}/reply": {
-      "parameters": [
-        {
-          "name": "mediaId",
-          "in": "path",
-          "required": true,
-          "example": "675c01d03a4243001523f21f",
-          "schema": {
-            "type": "integer"
-          }
         },
-        {
-          "name": "commentId",
-          "in": "path",
-          "required": true,
-          "example": "6840a061ddf0b25d3a7d87ed",
-          "schema": {
-            "type": "integer"
-          }
-        }
-      ],
-      "post": {
-        "summary": "Reply to Media Comment",
-        "parameters": [],
-        "responses": {},
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "content": {
-                    "type": "string"
-                  }
+        "/api/v2/auth/delete-user": {
+            "parameters": [],
+            "post": {
+                "summary": "Delete User",
+                "parameters": [],
+                "responses": {
+                    "default": {
+                        "headers": {},
+                        "description": "Delete User"
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "reason": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
-              }
             }
-          }
-        }
-      }
-    },
-    "/{{api}}/{{route}}/media/{id}/like": {
-      "parameters": [
-        {
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "example": "675c01d03a4243001523f21f",
-          "schema": {
-            "type": "integer"
-          }
-        }
-      ],
-      "post": {
-        "summary": "Like Media",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}/media/{mediaId}/comment/{commentId}/like": {
-      "parameters": [
-        {
-          "name": "mediaId",
-          "in": "path",
-          "required": true,
-          "example": "675c01d03a4243001523f21f",
-          "schema": {
-            "type": "integer"
-          }
         },
-        {
-          "name": "commentId",
-          "in": "path",
-          "required": true,
-          "example": "6840a061ddf0b25d3a7d87ed",
-          "schema": {
-            "type": "integer"
-          }
-        }
-      ],
-      "post": {
-        "summary": "Like Media Comment",
-        "parameters": [],
-        "responses": {}
-      }
-    },
-    "/{{api}}/{{route}}/media/{id}/favorite": {
-      "parameters": [
-        {
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "example": "675c01d03a4243001523f21f",
-          "schema": {
-            "type": "integer"
-          }
-        }
-      ],
-      "post": {
-        "summary": "Add Media to Favourites",
-        "parameters": [],
-        "responses": {},
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object"
-              }
+        "/api/v2/auth/forgot-pwd": {
+            "parameters": [],
+            "post": {
+                "summary": "Forgot Password",
+                "parameters": [],
+                "responses": {
+                    "default": {
+                        "headers": {},
+                        "description": "Forgot Password"
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
-          }
-        }
-      }
-    },
-    "/{{api}}/{{route}}/add": {
-      "parameters": [],
-      "post": {
-        "summary": "Add Topic",
-        "parameters": [],
-        "responses": {},
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "title": {
-                    "type": "string"
-                  },
-                  "description": {
-                    "type": "string"
-                  },
-                  "image": {
-                    "type": "object",
-                    "properties": {
-                      "url": {
-                        "type": "string",
-                        "format": "uri"
-                      },
-                      "reference": {
+        },
+        "/api/v2/auth/reset-pwd": {
+            "parameters": [],
+            "patch": {
+                "summary": "Reset Password",
+                "parameters": [],
+                "responses": {
+                    "default": {
+                        "headers": {},
+                        "description": "Reset Password"
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "code": {
+                                        "type": "string"
+                                    },
+                                    "password": {
+                                        "type": "string"
+                                    },
+                                    "passwordConfirm": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/auth/update-pwd": {
+            "parameters": [],
+            "patch": {
+                "summary": "Update Password",
+                "parameters": [],
+                "responses": {
+                    "default": {
+                        "headers": {},
+                        "description": "Update Password"
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "currentPassword": {
+                                        "type": "string"
+                                    },
+                                    "newPassword": {
+                                        "type": "string"
+                                    },
+                                    "newPasswordConfirm": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/auth/google": {
+            "parameters": [],
+            "get": {
+                "summary": "Google Login",
+                "parameters": [],
+                "responses": {},
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/users/feedback": {
+            "parameters": [],
+            "post": {
+                "summary": "Post Feedback",
+                "parameters": [],
+                "responses": {
+                    "default": {
+                        "headers": {},
+                        "description": "Post Feedback"
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "comment": {
+                                        "type": "string"
+                                    },
+                                    "rating": {
+                                        "type": "integer"
+                                    },
+                                    "userRated": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "summary": "Feedback",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/users/serviceuser/profile_setup": {
+            "parameters": [],
+            "patch": {
+                "summary": "Profile_Setup [serviceuser]",
+                "parameters": [],
+                "responses": {
+                    "default": {
+                        "headers": {},
+                        "description": "Profile_Setup [serviceuser]"
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "birthday": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "gender": {
+                                        "type": "string"
+                                    },
+                                    "username": {
+                                        "type": "string"
+                                    },
+                                    "accountPrivacy": {
+                                        "type": "string"
+                                    },
+                                    "turnOnNotification": {
+                                        "type": "boolean"
+                                    },
+                                    "nationality": {
+                                        "type": "string"
+                                    },
+                                    "interestedTopics": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "profilePicture": {
+                                        "type": "object",
+                                        "properties": {
+                                            "url": {
+                                                "type": "string",
+                                                "format": "uri"
+                                            },
+                                            "reference": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/users/counsellors": {
+            "parameters": [],
+            "get": {
+                "summary": "Get Counsellors",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/users/counsellor/profile_setup": {
+            "parameters": [],
+            "patch": {
+                "summary": "Profile_Setup [counsellor]",
+                "parameters": [],
+                "responses": {},
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "birthday": {
+                                        "type": "string",
+                                        "format": "date"
+                                    },
+                                    "gender": {
+                                        "type": "string"
+                                    },
+                                    "username": {
+                                        "type": "string"
+                                    },
+                                    "accountPrivacy": {
+                                        "type": "string"
+                                    },
+                                    "turnOnNotification": {
+                                        "type": "boolean"
+                                    },
+                                    "nationality": {
+                                        "type": "string"
+                                    },
+                                    "interestedTopics": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "profilePicture": {
+                                        "type": "object",
+                                        "properties": {
+                                            "url": {
+                                                "type": "string",
+                                                "format": "uri"
+                                            },
+                                            "reference": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    },
+                                    "qualifications": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "url": {
+                                                    "type": "string",
+                                                    "format": "uri"
+                                                },
+                                                "reference": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/users/counsellor/info": {
+            "parameters": [],
+            "patch": {
+                "summary": "Counsellor Info",
+                "parameters": [],
+                "responses": {},
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "bio": {
+                                        "type": "string"
+                                    },
+                                    "sessionType": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "specializedSupport": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "focusArea": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "commencePractice": {
+                                        "type": "string",
+                                        "format": "utc-millisec"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/users/counsellor/schedule": {
+            "parameters": [],
+            "patch": {
+                "summary": "Update Counsellor Schedule",
+                "parameters": [],
+                "responses": {},
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "schedule": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "dayOfWeek": {
+                                                    "type": "string"
+                                                },
+                                                "availability": {
+                                                    "type": "array",
+                                                    "items": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "from": {
+                                                                "type": "string",
+                                                                "format": "style"
+                                                            },
+                                                            "to": {
+                                                                "type": "string"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/users/patients": {
+            "parameters": [],
+            "get": {
+                "summary": "Get patients",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/users/verify-phone-code": {
+            "parameters": [],
+            "post": {
+                "summary": "Send  Phone Verify code",
+                "parameters": [],
+                "responses": {
+                    "default": {
+                        "headers": {},
+                        "description": "Send  Phone Verify code"
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "phoneNumber": {
+                                        "type": "string",
+                                        "format": "utc-millisec"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/users/update-user-email": {
+            "parameters": [],
+            "post": {
+                "summary": "Update User email",
+                "parameters": [],
+                "responses": {
+                    "default": {
+                        "headers": {},
+                        "description": "Update User email"
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "newEmail": {
+                                        "type": "string",
+                                        "format": "email"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/users/update-user-country": {
+            "parameters": [],
+            "post": {
+                "summary": "Update User Country",
+                "parameters": [],
+                "responses": {
+                    "default": {
+                        "headers": {},
+                        "description": "Update User Country"
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "country": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/users/me": {
+            "parameters": [],
+            "get": {
+                "summary": "Get User Details",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/users/verify-phone": {
+            "parameters": [],
+            "patch": {
+                "summary": "Verify PhoneNumber",
+                "parameters": [],
+                "responses": {
+                    "default": {
+                        "headers": {},
+                        "description": "Verify PhoneNumber"
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "phoneNumber": {
+                                        "type": "string",
+                                        "format": "utc-millisec"
+                                    },
+                                    "code": {
+                                        "type": "string",
+                                        "format": "utc-millisec"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/users/username/{username}": {
+            "parameters": [
+                {
+                    "name": "username",
+                    "in": "path",
+                    "required": true,
+                    "example": "kds",
+                    "schema": {
                         "type": "string"
-                      }
                     }
-                  },
-                  "category": {
-                    "type": "string"
-                  }
                 }
-              }
+            ],
+            "get": {
+                "summary": "Check Username Availability",
+                "parameters": [],
+                "responses": {}
             }
-          }
-        }
-      }
-    },
-    "/{{api}}/{{route}}/{id}/mute": {
-      "parameters": [
-        {
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        }
-      ],
-      "post": {
-        "summary": "Mute Topic",
-        "parameters": [],
-        "responses": {},
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object"
-              }
+        },
+        "/api/v2/users/username": {
+            "parameters": [],
+            "patch": {
+                "summary": "update username",
+                "parameters": [],
+                "responses": {
+                    "default": {
+                        "headers": {},
+                        "description": "update username"
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "newUsername": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
-          }
-        }
-      }
-    },
-    "/{{api}}/{{route}}/{id}/leave": {
-      "parameters": [
-        {
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        }
-      ],
-      "post": {
-        "summary": "Leave Topic",
-        "parameters": [],
-        "responses": {},
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object"
-              }
+        },
+        "/api/v2/users/suggest-username": {
+            "parameters": [],
+            "get": {
+                "summary": "suggest usernames",
+                "parameters": [],
+                "responses": {}
             }
-          }
-        }
-      }
-    },
-    "/{{api}}/{{route}}/{id}/join": {
-      "parameters": [
-        {
-          "name": "id",
-          "in": "path",
-          "required": true,
-          "schema": {
-            "type": "string"
-          }
-        }
-      ],
-      "post": {
-        "summary": "Join Topic",
-        "parameters": [],
-        "responses": {},
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object"
-              }
+        },
+        "/api/v2/users/update_name": {
+            "parameters": [],
+            "patch": {
+                "summary": "Update name",
+                "parameters": [],
+                "responses": {
+                    "default": {
+                        "headers": {},
+                        "description": "Update name"
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "firstname": {
+                                        "type": "string"
+                                    },
+                                    "lastname": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
-          }
+        },
+        "/api/v2/users/update_password": {
+            "parameters": [],
+            "patch": {
+                "summary": "Update password",
+                "parameters": [],
+                "responses": {
+                    "default": {
+                        "headers": {},
+                        "description": "Update password"
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "currentPassword": {
+                                        "type": "string"
+                                    },
+                                    "newPassword": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/users/update-profile-picture": {
+            "parameters": [],
+            "patch": {
+                "summary": "Update Profile Picture",
+                "parameters": [],
+                "responses": {
+                    "default": {
+                        "headers": {},
+                        "description": "Update Profile Picture"
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "profilePicture": {
+                                        "type": "string",
+                                        "format": "uri"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/users/notification-settings": {
+            "parameters": [],
+            "get": {
+                "summary": "Notifications",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/users/update-notification-settings": {
+            "parameters": [],
+            "patch": {
+                "summary": "Update Notification Settings",
+                "parameters": [],
+                "responses": {
+                    "default": {
+                        "headers": {},
+                        "description": "Update Notification Settings"
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "pushConvoEngagement": {
+                                        "type": "boolean"
+                                    },
+                                    "emailConvoEngagement": {
+                                        "type": "boolean"
+                                    },
+                                    "pushNewConvo": {
+                                        "type": "boolean"
+                                    },
+                                    "emailNewConvo": {
+                                        "type": "boolean"
+                                    },
+                                    "pushRescheduleRequest": {
+                                        "type": "boolean"
+                                    },
+                                    "emailRescheduleRequest": {
+                                        "type": "boolean"
+                                    },
+                                    "commentReplies": {
+                                        "type": "boolean"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/users/privacy-settings": {
+            "parameters": [],
+            "get": {
+                "summary": "Privacy Settings",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/users/update-privacy-settings": {
+            "parameters": [],
+            "patch": {
+                "summary": "Update Privacy Settings",
+                "parameters": [],
+                "responses": {
+                    "default": {
+                        "headers": {},
+                        "description": "Update Privacy Settings"
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "showName": {
+                                        "type": "boolean"
+                                    },
+                                    "showProfilePic": {
+                                        "type": "boolean"
+                                    },
+                                    "showMoodChart": {
+                                        "type": "boolean"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/users/verify-email": {
+            "parameters": [],
+            "post": {
+                "summary": "verify-email",
+                "parameters": [],
+                "responses": {
+                    "default": {
+                        "headers": {},
+                        "description": "verify-email"
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "code": {
+                                        "type": "string",
+                                        "format": "utc-millisec"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "summary": "send-email-verification",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/users/verify-user-email": {
+            "parameters": [],
+            "post": {
+                "summary": "Verify new email",
+                "parameters": [],
+                "responses": {
+                    "default": {
+                        "headers": {},
+                        "description": "Verify new email"
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "newEmail": {
+                                        "type": "string",
+                                        "format": "email"
+                                    },
+                                    "verificationCode": {
+                                        "type": "string",
+                                        "format": "utc-millisec"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/users/update-gender": {
+            "parameters": [],
+            "patch": {
+                "summary": "Update gender",
+                "parameters": [],
+                "responses": {
+                    "default": {
+                        "headers": {},
+                        "description": "Update gender"
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "gender": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/users/counsellor/profile/{counsellorId}": {
+            "parameters": [
+                {
+                    "name": "counsellorId",
+                    "in": "path",
+                    "required": true,
+                    "example": "67a5b22b607751bc2dfbd656",
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+            ],
+            "get": {
+                "summary": "Get Counsellor profile by ID",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/users/{id}/user": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "example": "66e6e3954e5cc6001597f886",
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+            ],
+            "get": {
+                "summary": "Get User by ID",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/users/mood-categories": {
+            "parameters": [],
+            "get": {
+                "summary": "Mood Categories",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/users/log-mood": {
+            "parameters": [],
+            "post": {
+                "summary": "Log User Mood",
+                "parameters": [],
+                "responses": {
+                    "default": {
+                        "headers": {},
+                        "description": "Log User Mood"
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "category": {
+                                        "type": "string"
+                                    },
+                                    "emotion": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "note": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/users/mood-journal": {
+            "parameters": [],
+            "get": {
+                "summary": "Mood Journal",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/users/mood-log-last-7-days": {
+            "parameters": [],
+            "get": {
+                "summary": "Mood log last 7 days",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/users/mood-log/{period}": {
+            "parameters": [
+                {
+                    "name": "period",
+                    "in": "path",
+                    "required": true,
+                    "example": "Y",
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ],
+            "get": {
+                "summary": "Mood Journal per period",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/breathing-session/create": {
+            "parameters": [],
+            "post": {
+                "summary": "Create Session",
+                "parameters": [],
+                "responses": {
+                    "default": {
+                        "headers": {},
+                        "description": "Create Session"
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "startTime": {
+                                        "type": "string",
+                                        "format": "date-time"
+                                    },
+                                    "duration": {
+                                        "type": "integer"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/breathing-session/summary": {
+            "parameters": [],
+            "get": {
+                "summary": "Summary",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/thought-of-the-day/today": {
+            "parameters": [],
+            "get": {
+                "summary": "ThoughtOfTheDay",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/thought-of-the-day/track-view/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "example": "66c1029494146d8819baaf88",
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+            ],
+            "post": {
+                "summary": "Track View",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/thought-of-the-day/track-share/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "example": "66c1029494146d8819baaf88",
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+            ],
+            "post": {
+                "summary": "Track Share",
+                "parameters": [],
+                "responses": {},
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "platform": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/sessions/{id}/rooms": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ],
+            "post": {
+                "summary": "create room",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/sessions/rooms/{roomId}": {
+            "parameters": [
+                {
+                    "name": "roomId",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ],
+            "get": {
+                "summary": "get room",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/sessions/rooms/{roomId}/validate": {
+            "parameters": [
+                {
+                    "name": "roomId",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ],
+            "get": {
+                "summary": "validate room",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/sessions/rooms/{roomId}/deactivate": {
+            "parameters": [
+                {
+                    "name": "roomId",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ],
+            "get": {
+                "summary": "deactivate room",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/sessions/{sessionId}/categories": {
+            "parameters": [
+                {
+                    "name": "sessionId",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ],
+            "post": {
+                "summary": "create category",
+                "parameters": [],
+                "responses": {}
+            },
+            "get": {
+                "summary": "get categories",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/sessions/{sessionId}/categories/{id}": {
+            "parameters": [
+                {
+                    "name": "sessionId",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ],
+            "get": {
+                "summary": "get category",
+                "parameters": [],
+                "responses": {}
+            },
+            "patch": {
+                "summary": "update category",
+                "parameters": [],
+                "responses": {}
+            },
+            "delete": {
+                "summary": "delete category",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/sessions/{sessionId}/reviews": {
+            "parameters": [
+                {
+                    "name": "sessionId",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ],
+            "post": {
+                "summary": "create review",
+                "parameters": [],
+                "responses": {},
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "session": {
+                                        "type": "string"
+                                    },
+                                    "user": {
+                                        "type": "string"
+                                    },
+                                    "leader": {
+                                        "type": "string"
+                                    },
+                                    "rating": {
+                                        "type": "integer"
+                                    },
+                                    "review": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/sessions/{sessionId}/reviews/{id}": {
+            "parameters": [
+                {
+                    "name": "sessionId",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                },
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ],
+            "get": {
+                "summary": "get review",
+                "parameters": [],
+                "responses": {}
+            },
+            "patch": {
+                "summary": "update review",
+                "parameters": [],
+                "responses": {},
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object"
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "delete review",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/session": {
+            "parameters": [],
+            "post": {
+                "summary": "create",
+                "parameters": [],
+                "responses": {},
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "startTime": {
+                                        "type": "string"
+                                    },
+                                    "endTime": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "interactionType": {
+                                        "type": "string"
+                                    },
+                                    "assistanceType": {
+                                        "type": "string"
+                                    },
+                                    "topics": {
+                                        "type": "string"
+                                    },
+                                    "emotionalState": {
+                                        "type": "string"
+                                    },
+                                    "copingMechanisms": {
+                                        "type": "string"
+                                    },
+                                    "expectations": {
+                                        "type": "string"
+                                    },
+                                    "specialisedCounselling": {
+                                        "type": "string"
+                                    },
+                                    "supportSystem": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "summary": "get a session",
+                "parameters": [],
+                "responses": {}
+            },
+            "socket.io": {
+                "summary": "town square connection",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/sessions/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "example": "684053a400e2a900150ade84",
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+            ],
+            "patch": {
+                "summary": "update a session",
+                "parameters": [],
+                "responses": {},
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "topics": {
+                                        "type": "string"
+                                    },
+                                    "interactionType": {
+                                        "type": "string"
+                                    },
+                                    "startTime": {
+                                        "type": "string"
+                                    },
+                                    "endTime": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "delete a session",
+                "parameters": [],
+                "responses": {}
+            },
+            "get": {
+                "summary": "Get an Assessment",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/sessions": {
+            "parameters": [],
+            "socket.io": {
+                "summary": "sessions chat connection",
+                "parameters": [
+                    {
+                        "name": "channelName",
+                        "in": "query",
+                        "required": false,
+                        "example": "ChatChannelName",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "from",
+                        "in": "query",
+                        "required": false,
+                        "example": "fromValue",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {}
+            }
+        },
+        "/api/v2/sessions/user": {
+            "parameters": [],
+            "get": {
+                "summary": "get current user’s sessions",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/sessions/leader": {
+            "parameters": [],
+            "get": {
+                "summary": "get current leader’s sessions",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/sessions/{id}/user/joined": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ],
+            "post": {
+                "summary": "set user joined",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/sessions/{id}/leader/joined": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ],
+            "post": {
+                "summary": "set leader joined",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/sessions/{sessionsId}/respond": {
+            "parameters": [
+                {
+                    "name": "sessionsId",
+                    "in": "path",
+                    "required": true,
+                    "example": "6711236d9039856f974340f9",
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+            ],
+            "post": {
+                "summary": "respond to session",
+                "parameters": [],
+                "responses": {},
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "accepted": {
+                                        "type": "boolean"
+                                    },
+                                    "reason": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/sessions/{id}/selfassign": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ],
+            "post": {
+                "summary": "self assign session",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/sessions/search": {
+            "parameters": [],
+            "post": {
+                "summary": "Search for counsellors for a session",
+                "parameters": [],
+                "responses": {},
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "topics": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "specialty": {
+                                        "type": "string"
+                                    },
+                                    "genderPreference": {
+                                        "type": "string"
+                                    },
+                                    "sessionType": {
+                                        "type": "string"
+                                    },
+                                    "cityOfResidence": {
+                                        "type": "string"
+                                    },
+                                    "countryOfResidence": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/sessions/upcoming": {
+            "parameters": [],
+            "get": {
+                "summary": "Get a User's Upcoming Sessions with Counsellor",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/sessions/history": {
+            "parameters": [],
+            "get": {
+                "summary": "Get a User's Session History",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/sessions/rate/671123809039856f97434101": {
+            "parameters": [],
+            "post": {
+                "summary": "Rate a session",
+                "parameters": [],
+                "responses": {},
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "rating": {
+                                        "type": "integer"
+                                    },
+                                    "notes": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/sessions/user/all": {
+            "parameters": [],
+            "get": {
+                "summary": "Get All of a User's Sessions",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/sessions/month": {
+            "parameters": [],
+            "get": {
+                "summary": "Get User's Sessions for the Month",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/sessions/{sessionId}/history": {
+            "parameters": [
+                {
+                    "name": "sessionId",
+                    "in": "path",
+                    "required": true,
+                    "example": "66eb00580f682a4d8e4e5ae1",
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+            ],
+            "get": {
+                "summary": "Get Session History by User ID",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/sessions/cancel/{sessionId}": {
+            "parameters": [
+                {
+                    "name": "sessionId",
+                    "in": "path",
+                    "required": true,
+                    "example": "675454eee302baffbe61a2e9",
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+            ],
+            "patch": {
+                "summary": "Cancel a Session",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/sessions/reschedule/{sessionId}": {
+            "parameters": [
+                {
+                    "name": "sessionId",
+                    "in": "path",
+                    "required": true,
+                    "example": "675454eee302baffbe61a2e9",
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+            ],
+            "patch": {
+                "summary": "Reschedule a Session",
+                "parameters": [],
+                "responses": {},
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "duration": {
+                                        "type": "integer"
+                                    },
+                                    "session": {
+                                        "type": "object",
+                                        "properties": {
+                                            "title": {
+                                                "type": "string"
+                                            },
+                                            "description": {
+                                                "type": "string"
+                                            },
+                                            "interactionType": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    },
+                                    "intakeResponse": {
+                                        "type": "object",
+                                        "properties": {
+                                            "topics": {
+                                                "type": "string"
+                                            },
+                                            "emotionalState": {
+                                                "type": "string"
+                                            },
+                                            "copingMechanisms": {
+                                                "type": "string"
+                                            },
+                                            "expectations": {
+                                                "type": "string"
+                                            },
+                                            "specialisedCounselling": {
+                                                "type": "string"
+                                            },
+                                            "sameGenderPreference": {
+                                                "type": "string"
+                                            },
+                                            "supportSystem": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/slots/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ],
+            "get": {
+                "summary": "get",
+                "parameters": [],
+                "responses": {}
+            },
+            "patch": {
+                "summary": "update",
+                "parameters": [],
+                "responses": {}
+            },
+            "delete": {
+                "summary": "delete slot",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/slots": {
+            "parameters": [],
+            "get": {
+                "summary": "get all",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/slots/availability": {
+            "parameters": [],
+            "get": {
+                "summary": "check availabilty",
+                "parameters": [],
+                "responses": {},
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "currentTime": {
+                                        "type": "string",
+                                        "format": "style"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/slots/{slotId}/book": {
+            "parameters": [],
+            "post": {
+                "summary": "book slot",
+                "parameters": [
+                    {
+                        "name": "slotId",
+                        "in": "path",
+                        "required": true,
+                        "example": "675454eee302baffbe61a2e9",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {},
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "duration": {
+                                        "type": "integer"
+                                    },
+                                    "session": {
+                                        "type": "object",
+                                        "properties": {
+                                            "title": {
+                                                "type": "string"
+                                            },
+                                            "description": {
+                                                "type": "string"
+                                            },
+                                            "interactionType": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    },
+                                    "intakeResponse": {
+                                        "type": "object",
+                                        "properties": {
+                                            "topics": {
+                                                "type": "string"
+                                            },
+                                            "emotionalState": {
+                                                "type": "string"
+                                            },
+                                            "copingMechanisms": {
+                                                "type": "string"
+                                            },
+                                            "expectations": {
+                                                "type": "string"
+                                            },
+                                            "specialisedCounselling": {
+                                                "type": "string"
+                                            },
+                                            "sameGenderPreference": {
+                                                "type": "string"
+                                            },
+                                            "supportSystem": {
+                                                "type": "string"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/slots/{id}/assign": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ],
+            "patch": {
+                "summary": "assign slot appointment",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/slots/counsellor/{counsellorId}": {
+            "parameters": [
+                {
+                    "name": "counsellorId",
+                    "in": "path",
+                    "required": true,
+                    "example": "675454eee302baffbe61a2e9",
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+            ],
+            "get": {
+                "summary": "Get a Counsellor's Free Slots",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/assessment-response/{userId}/{assessmentId}": {
+            "parameters": [
+                {
+                    "name": "userId",
+                    "in": "path",
+                    "required": true,
+                    "example": "66e6e3954e5cc6001597f886",
+                    "schema": {
+                        "type": "integer"
+                    }
+                },
+                {
+                    "name": "assessmentId",
+                    "in": "path",
+                    "required": true,
+                    "example": "68405a9bd302d84b99f1fdca",
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+            ],
+            "get": {
+                "summary": "Get User Response to Specific Assessment",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/assessment-response/{responseId}": {
+            "parameters": [
+                {
+                    "name": "responseId",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ],
+            "get": {
+                "summary": "Get User's Response",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/chat-request/accept/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "example": "683b5bb45538e900155f2dbd",
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+            ],
+            "patch": {
+                "summary": "Accept a Chat Request",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/square/topic": {
+            "parameters": [],
+            "post": {
+                "summary": "Add a Topic(Admin)",
+                "parameters": [],
+                "responses": {},
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "colorCode": {
+                                        "type": "string",
+                                        "format": "color"
+                                    },
+                                    "icon": {
+                                        "type": "string"
+                                    },
+                                    "tipsAndGuidelines": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "title": {
+                                                    "type": "string"
+                                                },
+                                                "description": {
+                                                    "type": "string"
+                                                },
+                                                "icon": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "get": {
+                "summary": "Get Topics",
+                "parameters": [],
+                "responses": {
+                    "default": {
+                        "headers": {},
+                        "description": "Queries"
+                    }
+                }
+            }
+        },
+        "/api/v2/square/topic/{id}": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "example": "66e08b043a4f47001500d841",
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+            ],
+            "get": {
+                "summary": "Get Topic Details",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/square/topic/{id}/mute": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "example": "66e08b043a4f47001500d841",
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+            ],
+            "patch": {
+                "summary": "Mute a Topic",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/square/topic/{id}/join": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "example": "66e08b043a4f47001500d841",
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+            ],
+            "patch": {
+                "summary": "Join a Topic",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/square/topic/{id}/leave": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "example": "66e08b043a4f47001500d841",
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+            ],
+            "patch": {
+                "summary": "Leave a Topic",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/square/convo/{convoId}/comment": {
+            "parameters": [
+                {
+                    "name": "convoId",
+                    "in": "path",
+                    "required": true,
+                    "example": "67502d605424c40015b58625",
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+            ],
+            "get": {
+                "summary": "Get Convo Comments",
+                "parameters": [],
+                "responses": {}
+            },
+            "post": {
+                "summary": "Comment on Convo",
+                "parameters": [],
+                "responses": {},
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "content": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/square/convo/comment/{commentId}/like": {
+            "parameters": [
+                {
+                    "name": "commentId",
+                    "in": "path",
+                    "required": true,
+                    "example": "68409bc58ae48147d50b935a",
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+            ],
+            "post": {
+                "summary": "Like a Convo Comment",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/square/convo/comment/{convoId}/reply": {
+            "parameters": [
+                {
+                    "name": "convoId",
+                    "in": "path",
+                    "required": true,
+                    "example": "67502d605424c40015b58625",
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+            ],
+            "post": {
+                "summary": "Reply Convo Comment",
+                "parameters": [],
+                "responses": {},
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "content": {
+                                        "type": "string"
+                                    },
+                                    "parentComment": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/square/convo/{topicId}": {
+            "parameters": [
+                {
+                    "name": "topicId",
+                    "in": "path",
+                    "required": true,
+                    "example": "66e08b043a4f47001500d841",
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+            ],
+            "post": {
+                "summary": "Create a Convo",
+                "parameters": [],
+                "responses": {
+                    "default": {
+                        "headers": {},
+                        "description": "Create Question"
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "type": {
+                                        "type": "string"
+                                    },
+                                    "body": {
+                                        "type": "string"
+                                    },
+                                    "imageUrl": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/square/convo/{id}/join": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "example": "67502d605424c40015b58625",
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+            ],
+            "patch": {
+                "summary": "Join A Convo",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/square/convo/{convoid}/leave": {
+            "parameters": [
+                {
+                    "name": "convoid",
+                    "in": "path",
+                    "required": true,
+                    "example": "67502d605424c40015b58625",
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+            ],
+            "patch": {
+                "summary": "Leave a Convo",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/square/convo/{id}/report": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "example": "67502d605424c40015b58625",
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+            ],
+            "post": {
+                "summary": "Report Convo",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/square/convo/{convoId}/reaction": {
+            "parameters": [
+                {
+                    "name": "convoId",
+                    "in": "path",
+                    "required": true,
+                    "example": "67502d605424c40015b58625",
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+            ],
+            "post": {
+                "summary": "React to a Convo",
+                "parameters": [],
+                "responses": {},
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "reaction": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/square/convo": {
+            "parameters": [],
+            "get": {
+                "summary": "Get Convos",
+                "parameters": [
+                    {
+                        "name": "topic",
+                        "in": "query",
+                        "required": false,
+                        "example": "Grief",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "headers": {},
+                        "description": "Queries"
+                    }
+                }
+            }
+        },
+        "/api/v2/square/convo/me": {
+            "parameters": [],
+            "get": {
+                "summary": "Get My Convos",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/square/media/{topicId}": {
+            "parameters": [
+                {
+                    "name": "topicId",
+                    "in": "path",
+                    "required": true,
+                    "schema": {
+                        "type": "string"
+                    }
+                }
+            ],
+            "post": {
+                "summary": "Create Media(Admin)",
+                "parameters": [],
+                "responses": {
+                    "default": {
+                        "headers": {},
+                        "description": "Article"
+                    }
+                },
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "type": {
+                                        "type": "string"
+                                    },
+                                    "content": {
+                                        "type": "string"
+                                    },
+                                    "featuredImage": {
+                                        "type": "string"
+                                    },
+                                    "duration": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/square/media": {
+            "parameters": [],
+            "get": {
+                "summary": "Get Meida",
+                "parameters": [
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "required": false,
+                        "example": "article",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "default": {
+                        "headers": {},
+                        "description": "Queries"
+                    }
+                }
+            }
+        },
+        "/api/v2/square/media/{id}/report": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "example": "675c01d03a4243001523f21f",
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+            ],
+            "post": {
+                "summary": "Report Media",
+                "parameters": [],
+                "responses": {},
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "reason": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/square/media/{id}/comment": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "example": "675c01d03a4243001523f21f",
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+            ],
+            "post": {
+                "summary": "Comment on Media",
+                "parameters": [],
+                "responses": {},
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "content": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/square/media/{mediaId}/comment/{commentId}/reply": {
+            "parameters": [
+                {
+                    "name": "mediaId",
+                    "in": "path",
+                    "required": true,
+                    "example": "675c01d03a4243001523f21f",
+                    "schema": {
+                        "type": "integer"
+                    }
+                },
+                {
+                    "name": "commentId",
+                    "in": "path",
+                    "required": true,
+                    "example": "6840a061ddf0b25d3a7d87ed",
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+            ],
+            "post": {
+                "summary": "Reply to Media Comment",
+                "parameters": [],
+                "responses": {},
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "content": {
+                                        "type": "string"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v2/square/media/{id}/like": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "example": "675c01d03a4243001523f21f",
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+            ],
+            "post": {
+                "summary": "Like Media",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/square/media/{mediaId}/comment/{commentId}/like": {
+            "parameters": [
+                {
+                    "name": "mediaId",
+                    "in": "path",
+                    "required": true,
+                    "example": "675c01d03a4243001523f21f",
+                    "schema": {
+                        "type": "integer"
+                    }
+                },
+                {
+                    "name": "commentId",
+                    "in": "path",
+                    "required": true,
+                    "example": "6840a061ddf0b25d3a7d87ed",
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+            ],
+            "post": {
+                "summary": "Like Media Comment",
+                "parameters": [],
+                "responses": {}
+            }
+        },
+        "/api/v2/square/media/{id}/favorite": {
+            "parameters": [
+                {
+                    "name": "id",
+                    "in": "path",
+                    "required": true,
+                    "example": "675c01d03a4243001523f21f",
+                    "schema": {
+                        "type": "integer"
+                    }
+                }
+            ],
+            "post": {
+                "summary": "Add Media to Favourites",
+                "parameters": [],
+                "responses": {},
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object"
+                            }
+                        }
+                    }
+                }
+            }
         }
-      }
     }
-  }
 }

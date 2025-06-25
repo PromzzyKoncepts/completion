@@ -21,41 +21,50 @@ const mongooseLeanVirtuals = require("mongoose-lean-virtuals");
 const Comment = require("./Comment");
 const { mongooseV2 } = require("../../configs/database/db");
 
+const tipSchema = new mongoose.Schema(
+    {
+        icon: {
+            url: { type: String, required: true },
+            reference: { type: String, required: true },
+        },
+        title: { type: String, required: true },
+        description: { type: String, required: true },
+    },
+    { _id: true }
+);
+
 const topicSchema = mongoose.Schema({
-  title: String,
-  description: String,
-  image: {
-    url: { type: String },
-    reference: { type: String },
-  },
-  category: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "TopicCategory",
-  },
-  author: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Users",
-  },
-  likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "Users" }],
-  commentCount: Number,
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-  lastUpdated: {
-    type: Date,
-    default: Date.now,
-  },
-  muted: {
-    type: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Users' }],
-    default: []
-  },
-  participants: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Users' }],
+    title: String,
+    description: String,
+    image: {
+        url: { type: String },
+        reference: { type: String },
+    },
+    tipsAndGuidelines: [tipSchema],
+    author: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Users",
+    },
+    likes: [{ type: mongoose.Schema.Types.ObjectId, ref: "Users" }],
+    commentCount: Number,
+    createdAt: {
+        type: Date,
+        default: Date.now,
+    },
+    lastUpdated: {
+        type: Date,
+        default: Date.now,
+    },
+    muted: {
+        type: [{ type: mongoose.Schema.Types.ObjectId, ref: "Users" }],
+        default: [],
+    },
+    participants: [{ type: mongoose.Schema.Types.ObjectId, ref: "Users" }],
 });
 
 topicSchema.virtual("comments").get(async () => {
-  const comments = await Comment.find({ topic: this._id });
-  return comments;
+    const comments = await Comment.find({ topic: this._id });
+    return comments;
 });
 
 topicSchema.plugin(mongooseLeanVirtuals);

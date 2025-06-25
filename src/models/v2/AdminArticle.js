@@ -23,7 +23,6 @@ const reportSchema = new mongoose.Schema({
 const contentBlockSchema = new mongoose.Schema({
     type: { type: String, enum: ["text", "image"], required: true },
     content: { type: String, required: true }, // For text blocks, this is the text. For image blocks, this is the image URL
-    caption: { type: String, default: "" }, // Optional caption for image blocks
     order: { type: Number, required: true } // To maintain the order of blocks
 });
 

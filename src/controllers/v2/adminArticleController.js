@@ -12,9 +12,9 @@ exports.createArticle = asyncHandler(async (req, res, next) => {
         const { title, topicId, contentBlocks, featuredImage } = req.body;
 
         // Validate required fields
-        if (!title || !topicId) {
-            return ApiResponse.error(res, "Title and topic are required", 400);
-        }
+        // if (!title || !topicId) {
+        //     return ApiResponse.error(res, "Title and topic are required", 400);
+        // }
 
         // Check if topic exists
         const existingTopic = await Topic.findById(topicId);
@@ -26,15 +26,33 @@ exports.createArticle = asyncHandler(async (req, res, next) => {
         if (contentBlocks && Array.isArray(contentBlocks)) {
             for (const block of contentBlocks) {
                 if (!block.type || !["text", "image"].includes(block.type)) {
-                    return ApiResponse.error(res, "Each content block must have a valid type (text or image)", 400);
+                    return ApiResponse.error(
+                        res,
+                        "Each content block must have a valid type (text or image)",
+                        400
+                    );
                 }
                 if (!block.content) {
-                    return ApiResponse.error(res, "Each content block must have content", 400);
+                    return ApiResponse.error(
+                        res,
+                        "Each content block must have content",
+                        400
+                    );
                 }
                 if (typeof block.order !== "number") {
-                    return ApiResponse.error(res, "Each content block must have an order number", 400);
+                    return ApiResponse.error(
+                        res,
+                        "Each content block must have an order number",
+                        400
+                    );
                 }
             }
+        }else{
+            return ApiResponse.error(
+                res,
+                "Content blocks cannot be empty",
+                400
+            );
         }
 
         // Create a new article
@@ -43,19 +61,22 @@ exports.createArticle = asyncHandler(async (req, res, next) => {
             type: "article",
             topic: topicId,
             author,
-            contentBlocks: contentBlocks || [],
-            featuredImage: featuredImage || null
+            contentBlocks: contentBlocks,
+            featuredImage: featuredImage,
         });
-        
-        // console.log(newArticle)
+
         // Save the article
         await newArticle.save();
 
         // Return success response with the created article
-        return ApiResponse.success(res, newArticle, "Article created successfully", 201);
+        return ApiResponse.success(
+            res,
+            newArticle,
+            "Article created successfully",
+            201
+        );
     } catch (error) {
-      console.log(error)
-      AppLogger.error(error);
+        AppLogger.error(error);
         return ApiResponse.error(res, "Error creating article");
     }
 });
@@ -73,7 +94,11 @@ exports.getArticleById = asyncHandler(async (req, res, next) => {
             return ApiResponse.error(res, "Article not found", 404);
         }
 
-        return ApiResponse.success(res, article, "Article fetched successfully");
+        return ApiResponse.success(
+            res,
+            article,
+            "Article fetched successfully"
+        );
     } catch (error) {
         AppLogger.error(error);
         return ApiResponse.error(res, "Error fetching article");
@@ -88,32 +113,48 @@ exports.updateArticle = asyncHandler(async (req, res, next) => {
 
         // Find the article
         const article = await Media.findById(articleId);
-        
+
         if (!article || article.type !== "article") {
             return ApiResponse.error(res, "Article not found", 404);
         }
 
         // Check if the user is the author
         if (article.author.toString() !== author) {
-            return ApiResponse.error(res, "You are not authorized to update this article", 403);
+            return ApiResponse.error(
+                res,
+                "You are not authorized to update this article",
+                403
+            );
         }
 
         // Update fields if provided
         if (title) article.title = title;
         if (featuredImage) article.featuredImage = featuredImage;
-        
+
         // Update content blocks if provided
         if (contentBlocks && Array.isArray(contentBlocks)) {
             // Validate content blocks
             for (const block of contentBlocks) {
                 if (!block.type || !["text", "image"].includes(block.type)) {
-                    return ApiResponse.error(res, "Each content block must have a valid type (text or image)", 400);
+                    return ApiResponse.error(
+                        res,
+                        "Each content block must have a valid type (text or image)",
+                        400
+                    );
                 }
                 if (!block.content) {
-                    return ApiResponse.error(res, "Each content block must have content", 400);
+                    return ApiResponse.error(
+                        res,
+                        "Each content block must have content",
+                        400
+                    );
                 }
                 if (typeof block.order !== "number") {
-                    return ApiResponse.error(res, "Each content block must have an order number", 400);
+                    return ApiResponse.error(
+                        res,
+                        "Each content block must have an order number",
+                        400
+                    );
                 }
             }
             article.contentBlocks = contentBlocks;
@@ -122,7 +163,11 @@ exports.updateArticle = asyncHandler(async (req, res, next) => {
         // Save the updated article
         await article.save();
 
-        return ApiResponse.success(res, article, "Article updated successfully");
+        return ApiResponse.success(
+            res,
+            article,
+            "Article updated successfully"
+        );
     } catch (error) {
         AppLogger.error(error);
         return ApiResponse.error(res, "Error updating article");
@@ -136,14 +181,18 @@ exports.deleteArticle = asyncHandler(async (req, res, next) => {
 
         // Find the article
         const article = await Media.findById(articleId);
-        
+
         if (!article || article.type !== "article") {
             return ApiResponse.error(res, "Article not found", 404);
         }
 
         // Check if the user is the author
         if (article.author.toString() !== author) {
-            return ApiResponse.error(res, "You are not authorized to delete this article", 403);
+            return ApiResponse.error(
+                res,
+                "You are not authorized to delete this article",
+                403
+            );
         }
 
         // Delete the article
@@ -155,4 +204,3 @@ exports.deleteArticle = asyncHandler(async (req, res, next) => {
         return ApiResponse.error(res, "Error deleting article");
     }
 });
-

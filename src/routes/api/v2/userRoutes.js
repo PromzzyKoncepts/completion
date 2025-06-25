@@ -73,7 +73,7 @@ router.get(
     UserController.getUserLocaleDetails
 );
 
-router.post(
+router.patch(
     "/update-user-country",
     AuthMiddleware.protect,
     UserController.updateCountry
@@ -82,7 +82,7 @@ router.post(
 router
     .route("/update-user-email")
     .all(AuthMiddleware.protect)
-    .post(UserController.updateUserEmail)
+    .patch(UserController.updateUserEmail);
 
 
 router

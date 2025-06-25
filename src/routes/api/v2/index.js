@@ -17,6 +17,9 @@ const chatRequestRoutes = require("./chatRequestRoutes")
 const topicRoutes = require("./topicRoutes");
 const adminRoutes = require("./adminRoutes");
 const router = express.Router();
+const swaggerUi = require("swagger-ui-express");
+const fs = require("fs");
+const path = require("path");
 
 router.use("/thought-of-the-day", thoughtOfTheDay);
 router.use("/auth", authRoutes);
@@ -36,5 +39,16 @@ router.use("/chat-request", chatRequestRoutes);
 
 router.use("/topic", topicRoutes);
 router.use("/admin", adminRoutes);
+
+
+if (process.env.NODE_ENV === "development") {
+    // Read your OpenAPI JSON file
+    const openapiSpec = JSON.parse(
+        fs.readFileSync(path.join(__dirname, "openapi.json"), "utf-8")
+    );
+
+    // Serve Swagger UI at /api-docs
+    router.use("/api-docs", swaggerUi.serve, swaggerUi.setup(openapiSpec));
+}
 
 module.exports = router;

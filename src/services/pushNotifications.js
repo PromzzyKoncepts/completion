@@ -102,7 +102,6 @@ module.exports = { PushNotification };
 //                 try {
 //                     const receipts =
 //                         await expo.getPushNotificationReceiptsAsync(chunk);
-//                     console.log(receipts);
 //                     for (const receiptId in receipts) {
 //                         const { status, message, details } =
 //                             receipts[receiptId];

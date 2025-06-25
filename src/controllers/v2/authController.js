@@ -239,8 +239,9 @@ exports.login = asyncHandler(async (req, res, next) => {
     }
 
     // Find the user by email and select password field for verification
-    const user = await User.findOne({ email }).select("+password +deactivationStatus +deleted");
-   
+    const user = await User.findOne({ email }).select(
+        "+password +deactivationStatus +deleted"
+    );
 
     // Check if the user exists
     if (!user) {
@@ -249,11 +250,13 @@ exports.login = asyncHandler(async (req, res, next) => {
 
     // Check if the account is deactivated or deleted
     if (user.deleted) {
-        return ApiResponse.failure(res, "Account deleted, please contact support");
+        return ApiResponse.failure(
+            res,
+            "Account deleted, please contact support"
+        );
     }
 
     if (user.deactivationStatus) {
-
         user.deactivationStatus = false; // Reset deactivation status
         user.save();
     }
@@ -265,24 +268,21 @@ exports.login = asyncHandler(async (req, res, next) => {
 
     // used try and catch to handle errors
     try {
-    // Generate tokens if authentication is successful
-    const { accessToken, refreshToken } = await getTokens(user);
+        // Generate tokens if authentication is successful
+        const { accessToken, refreshToken } = await getTokens(user);
 
-    const data = {
-        "role": user.accountType,
-        "accessToken": accessToken,
-        "refreshToken": refreshToken
-    };
+        const data = {
+            role: user.accountType,
+            accessToken: accessToken,
+            refreshToken: refreshToken,
+        };
 
-    // Respond with success message and user data
-    return ApiResponse.success(res, data, "User logged in successfully.");
-    }
-    catch (error) {
-        AppLogger.error("Token generation error:", error);
-        return ApiResponse.failure(error, "An error occurred while logging in");
+        // Respond with success message and user data
+        return ApiResponse.success(res, data, "User logged in successfully.");
+    } catch (error) {
+        return ApiResponse.failure(res, "An error occurred while logging in");
     }
 });
-
 
 exports.forgotPassword = asyncHandler(async (req, res, next) => {
     const user = await User.findOne({ email: req.body.email });
@@ -324,7 +324,6 @@ exports.logout = asyncHandler(async (req, res, next) => {
     });
 });
 
-
 exports.updateUserEmail = asyncHandler(async (req, res, next) => {
     const currentUser = req.user;
     const { newEmail } = req.body;
@@ -337,7 +336,10 @@ exports.updateUserEmail = asyncHandler(async (req, res, next) => {
     // Check if the new email is already in use by another user
     const existingUser = await User.findOne({ email: newEmail });
     if (existingUser) {
-        return ApiResponse.failure(res, "Email is already in use by another user");
+        return ApiResponse.failure(
+            res,
+            "Email is already in use by another user"
+        );
     }
 
     // Update the user's email (but mark the email as unverified)
@@ -566,4 +568,21 @@ exports.refreshToken = asyncHandler(async (req, res, next) => {
             tokens,
         },
     });
+});
+
+exports.updatePushToken = asyncHandler(async (req, res, next) => {
+    const currentUser = req.user;
+    const { pushToken } = req.body;
+
+    if (!pushToken) {
+        return ApiResponse.failure(res, "Push Token is required");
+    }
+
+    // Update the user's email (but mark the email as unverified)
+    currentUser.pushToken = pushToken;
+
+    // Save the updated user info
+    await currentUser.save({ validateBeforeSave: false });
+
+    return ApiResponse.success(res, null, "Push Token updated successfully.");
 });

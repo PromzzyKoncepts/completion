@@ -10,6 +10,22 @@ exports.validateCreateArticle = JoiRequestBodyValidator(
         tags: Joi.string(),
     }).unknown(false)
 );
+exports.validateCreateAdminArticle = JoiRequestBodyValidator(
+    Joi.object({
+        title: Joi.string().required(),
+        topicId: Joi.string().required(),
+        contentBlocks: Joi.array()
+            .items(
+                Joi.object({
+                    type: Joi.string().valid("text", "image").required(),
+                    content: Joi.string().required(),
+                    order: Joi.number().required(),
+                })
+            )
+            .optional(),
+        featuredImage: Joi.string().allow(null, "").optional(),
+    }).unknown(false)
+);
 
 exports.validateUpdateArticle = JoiRequestBodyValidator(
     Joi.object({

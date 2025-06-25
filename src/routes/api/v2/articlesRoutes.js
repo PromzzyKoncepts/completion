@@ -1,6 +1,5 @@
 const express = require("express");
 const ArticleController = require("../../../controllers/v2/articleController");
-
 const AuthMiddleware = require("../../../middlewares/v2/auth");
 const ArticleMiddleware = require("../../../middlewares/v2/article");
 const CommentMiddleware = require("../../../middlewares/v2/comment");
@@ -15,14 +14,16 @@ const CommentMiddleware = require("../../../middlewares/v2/comment");
 module.exports = (townSquareSocket) => {
     const router = express.Router();
     const articleControllerInstance = ArticleController(townSquareSocket);
+
     
-    
-    // router.put("/:id/click", articleController.clickArticle);
-    router.patch(
-        "/:id/click",
-        AuthMiddleware.protect,
-        ArticleController.clickArticle
-    );
+
+    router.put("/:id/click", ArticleController.clickArticle);
+    // router.patch(
+    //     "/:id/click",
+    //     AuthMiddleware.protect,
+    //     ArticleController.clickArticle
+    // );
+
 
     router.post(
         "/",
@@ -30,7 +31,6 @@ module.exports = (townSquareSocket) => {
         ArticleMiddleware.validateCreateArticle,
         articleControllerInstance.createArticle
     );
-    
     router.get(
         "/",
         AuthMiddleware.protect,

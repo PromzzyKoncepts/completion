@@ -70,6 +70,31 @@ exports.protect = asyncHandler(async (req, res, next) => {
         return next(new AppError("Account deactivated or deleted, please contact support", 403));
     }
 
+    if (currentUser.blocked?.status) {
+        // Check if the block is temporary and has expired
+        if (currentUser.blocked.unblockDate && new Date() > currentUser.blocked.unblockDate) {
+            // Unblock the user if block has expired
+            currentUser.blocked = {
+                status: false,
+                reason: "",
+                type: "None",
+                blockedAt: null,
+                unblockDate: null,
+                manuallyUnblocked: false,
+            };
+            await currentUser.save();
+        } else {
+            // User is still blocked
+            let message = `Your account has been blocked. Reason: ${currentUser.blocked.reason || "Not specified"}`;
+            if (currentUser.blocked.unblockDate) {
+                message += `. The block will be automatically lifted on ${currentUser.blocked.unblockDate.toDateString()}`;
+            } else {
+                message += ". This is a permanent block.";
+            }
+            return next(new AppError(message, 403));
+        }
+    }
+
     // Check if the password was changed after the token was issued
     if (currentUser.changedPasswordAfter(decoded.iat)) {
         return next(
@@ -139,14 +164,16 @@ const commonConstraintsSchema = Joi.object({
         .max(16)
         .min(3)
         .messages({
-            "string.pattern.base": '"phoneNumber" must be in E.164 format, e.g., +123456789',
+            "string.pattern.base":
+                '"phoneNumber" must be in E.164 format, e.g., +123456789',
         }),
-    accountType: Joi.string().valid("serviceuser", "counsellor", "admin").required().messages({
-        "any.only": '"accountType" must be one of [Serviceuser, counsellor, admin]',
-    }),
-    pushToken: Joi.string().required().messages({
-        "any.required": '"pushToken" is required',
-    }),
+    accountType: Joi.string()
+        .valid("serviceuser", "counsellor", "admin")
+        .required()
+        .messages({
+            "any.only":
+                '"accountType" must be one of [Serviceuser, counsellor, admin]',
+        }),
 }).messages({
     "object.unknown": "{#label} is not allowed",
     "string.min": '"{#label}" must be at least {#limit} characters',
@@ -238,5 +265,11 @@ exports.validateResetPassword = JoiRequestBodyValidator(
             .messages({
                 "any.only": '"passwordConfirm" must match "password"',
             }),
+    }).unknown(false)
+);
+
+exports.validatePushToken = JoiRequestBodyValidator(
+    Joi.object({
+        pushToken: Joi.string().required(),
     }).unknown(false)
 );

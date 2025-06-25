@@ -13,6 +13,176 @@ const AppLogger = require("../../middlewares/logger/logger");
 const Factory = require("../../utils/factory");
 const ApiResponse = require("../../utils/ApiResponse");
 const ReportUser = require("../../models/v2/ReportUser");
+const Comment = require("../../models/v2/Comment");
+const Counsellor = require("../../models/v2/Counsellor");
+
+// exports.getBlockedUser = asyncHandler(async (req, res) => {
+//     try {
+//         const now = new Date();
+//         const { accountType, userId } = req.query;
+
+//         if (
+//             !accountType ||
+//             !["counsellor", "serviceuser"].includes(accountType)
+//         ) {
+//             return ApiResponse.error(
+//                 res,
+//                 "Invalid or missing accountType. Must be "counsellor" or "serviceuser".",
+//                 400
+//             );
+//         }
+
+//         if (!userId) {
+//             return ApiResponse.error(res, "Missing userId parameter.", 400);
+//         }
+
+//         const user = await User.findOne({
+//             _id: userId,
+//             accountType,
+//             "blocked.status": true,
+//             $or: [
+//                 { "blocked.unblockDate": { $gt: now } },
+//                 { "blocked.unblockDate": null },
+//             ],
+//         }).select("firstName lastName blocked accountType");
+
+//         if (!user) {
+//             return ApiResponse.error(res, "Blocked user not found.", 404);
+//         }
+
+//         const { blocked } = user;
+//         const fullName = `${user.firstName || ""} ${
+//             user.lastName || ""
+//         }`.trim();
+
+//         let timeLeft = null;
+//         if (blocked.unblockDate) {
+//             const msLeft = blocked.unblockDate.getTime() - now.getTime();
+//             const days = Math.floor(msLeft / (1000 * 60 * 60 * 24));
+//             const hours = Math.floor((msLeft / (1000 * 60 * 60)) % 24);
+//             const minutes = Math.floor((msLeft / (1000 * 60)) % 60);
+//             timeLeft = `${days}d ${hours}h ${minutes}m`;
+//         } else {
+//             timeLeft = "Permanent";
+//         }
+
+//         const formattedUser = {
+//             userId: user._id,
+//             name: fullName || "N/A",
+//             isBlocked: blocked.status,
+//             blockedType: blocked.type,
+//             blockedAt: blocked.blockedAt,
+//             reportItem: blocked.reportedItem,
+//             timeLeft,
+//             accountType: user.accountType,
+//         };
+
+//         return ApiResponse.success(
+//             res,
+//             formattedUser,
+//             "Blocked user fetched successfully."
+//         );
+//     } catch (error) {
+//         AppLogger.error(error);
+//         return ApiResponse.error(res, "Failed to fetch blocked user.");
+//     }
+// });
+
+// exports.getBlockedUsers = asyncHandler(async (req, res) => {
+//     try {
+//         const now = new Date();
+//         const { accountType, page = 1, limit = 10 } = req.query;
+
+//         if (
+//             !accountType ||
+//             !["counsellor", "serviceuser"].includes(accountType)
+//         ) {
+//             return ApiResponse.error(
+//                 res,
+//                 "Invalid or missing accountType. Must be "counsellor" or "serviceuser".",
+//                 400
+//             );
+//         }
+
+//         const pageNumber = parseInt(page);
+//         const limitNumber = parseInt(limit);
+//         const skip = (pageNumber - 1) * limitNumber;
+
+//         const total = await User.countDocuments({
+//             "blocked.status": true,
+//             accountType,
+//             $or: [
+//                 { "blocked.unblockDate": { $gt: now } },
+//                 { "blocked.unblockDate": null },
+//             ],
+//         });
+
+//         const users = await User.find({
+//             "blocked.status": true,
+//             accountType,
+//             $or: [
+//                 { "blocked.unblockDate": { $gt: now } },
+//                 { "blocked.unblockDate": null },
+//             ],
+//         })
+//             .select("firstName lastName blocked accountType")
+//             .skip(skip)
+//             .limit(limitNumber);
+
+//         const formattedUsers = users.map((user) => {
+//             const { blocked } = user;
+//             const fullName = `${user.firstName || ""} ${
+//                 user.lastName || ""
+//             }`.trim();
+
+//             let timeLeft = null;
+
+//             if (blocked.unblockDate) {
+//                 const msLeft = blocked.unblockDate.getTime() - now.getTime();
+//                 const days = Math.floor(msLeft / (1000 * 60 * 60 * 24));
+//                 const hours = Math.floor((msLeft / (1000 * 60 * 60)) % 24);
+//                 const minutes = Math.floor((msLeft / (1000 * 60)) % 60);
+//                 timeLeft = `${days}d ${hours}h ${minutes}m`;
+//             } else {
+//                 timeLeft = "Permanent";
+//             }
+
+//             return {
+//                 userId: user._id,
+//                 name: fullName || "N/A",
+//                 isBlocked: blocked.status,
+//                 blockedType: blocked.type,
+//                 blockedAt: blocked.blockedAt,
+//                 reportItem: blocked.reportedItem,
+//                 timeLeft,
+//                 accountType: user.accountType,
+//             };
+//         });
+
+//        return ApiResponse.success(
+//             res,
+//             {
+//                 users: formattedUsers,
+//                 pagination: {
+//                     total,
+//                     currentPage: pageNumber,
+//                     limit: limitNumber,
+//                     totalPages: Math.ceil(total / limitNumber),
+//                     hasNextPage: pageNumber * limitNumber < total,
+//                     hasPreviousPage: pageNumber > 1,
+//                 }
+//             },
+//             "Blocked users fetched successfully."
+//         );
+//     } catch (error) {
+//         AppLogger.error(error);
+//         return ApiResponse.error(res, "Failed to fetch blocked users.");
+//     }
+// });
+
+
+
+
 
 exports.getBlockedUser = asyncHandler(async (req, res) => {
     try {
@@ -48,6 +218,43 @@ exports.getBlockedUser = asyncHandler(async (req, res) => {
             return ApiResponse.error(res, "Blocked user not found.", 404);
         }
 
+        // Get the report details - changed from findById to findOne with reportedUser filter
+        let reportDetails = null;
+        if (user.blocked.reportedItem) {
+            const report = await ReportUser.findOne({
+                reportedUser: userId,
+                status: { $in: ["unresolved", "reviewed"] },
+            })
+                .populate("reportedBy", "firstName lastName")
+                .populate("reportedUser", "firstName lastName");
+
+            if (report) {
+                let reportedContent = null;
+
+                // Get the actual content based on entity type
+                if (report.entityType === "Comment") {
+                    const comment = await Comment.findById(
+                        report.reportedEntity
+                    );
+                    reportedContent = comment?.content || null;
+                } else if (report.entityType === "Convo") {
+                    const convo = await Convo.findById(report.reportedEntity);
+                    reportedContent = convo?.body || null;
+                }
+
+                reportDetails = {
+                    reportedBy: {
+                        id: report.reportedBy._id,
+                        name: `${report.reportedBy.firstName} ${report.reportedBy.lastName}`,
+                    },
+                    reportedContent,
+                    reportDescription: report.description,
+                    reportDate: report.createdAt,
+                    entityType: report.entityType,
+                };
+            }
+        }
+
         const { blocked } = user;
         const fullName = `${user.firstName || ""} ${
             user.lastName || ""
@@ -70,7 +277,7 @@ exports.getBlockedUser = asyncHandler(async (req, res) => {
             isBlocked: blocked.status,
             blockedType: blocked.type,
             blockedAt: blocked.blockedAt,
-            reportItem: blocked.reportedItem,
+            reportItem: reportDetails,
             timeLeft,
             accountType: user.accountType,
         };
@@ -89,7 +296,7 @@ exports.getBlockedUser = asyncHandler(async (req, res) => {
 exports.getBlockedUsers = asyncHandler(async (req, res) => {
     try {
         const now = new Date();
-        const { accountType } = req.query;
+        const { accountType, page = 1, limit = 10 } = req.query;
 
         if (
             !accountType ||
@@ -102,6 +309,19 @@ exports.getBlockedUsers = asyncHandler(async (req, res) => {
             );
         }
 
+        const pageNumber = parseInt(page);
+        const limitNumber = parseInt(limit);
+        const skip = (pageNumber - 1) * limitNumber;
+
+        const total = await User.countDocuments({
+            "blocked.status": true,
+            accountType,
+            $or: [
+                { "blocked.unblockDate": { $gt: now } },
+                { "blocked.unblockDate": null },
+            ],
+        });
+
         const users = await User.find({
             "blocked.status": true,
             accountType,
@@ -109,42 +329,120 @@ exports.getBlockedUsers = asyncHandler(async (req, res) => {
                 { "blocked.unblockDate": { $gt: now } },
                 { "blocked.unblockDate": null },
             ],
-        }).select("firstName lastName blocked accountType");
+        })
+            .select("firstName lastName blocked accountType _id")
+            .skip(skip)
+            .limit(limitNumber);
 
-        const formattedUsers = users.map((user) => {
-            const { blocked } = user;
-            console.log(blocked);
-            const fullName = `${user.firstName || ""} ${
-                user.lastName || ""
-            }`.trim();
+        // Get all user IDs to find their reports
+        const userIds = users.map((user) => user._id);
 
-            let timeLeft = null;
+        // Fetch all reports for these users in one query
+        const reports = await ReportUser.find({
+            reportedUser: { $in: userIds },
+            status: { $in: ["unresolved", "reviewed"] },
+        })
+            .populate("reportedBy", "firstName lastName")
+            .populate("reportedUser", "firstName lastName");
 
-            if (blocked.unblockDate) {
-                const msLeft = blocked.unblockDate.getTime() - now.getTime();
-                const days = Math.floor(msLeft / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((msLeft / (1000 * 60 * 60)) % 24);
-                const minutes = Math.floor((msLeft / (1000 * 60)) % 60);
-                timeLeft = `${days}d ${hours}h ${minutes}m`;
-            } else {
-                timeLeft = "Permanent";
-            }
-
-            return {
-                userId: user._id, // <-- Here
-                name: fullName || "N/A",
-                isBlocked: blocked.status,
-                blockedType: blocked.type,
-                blockedAt: blocked.blockedAt,
-                reportItem: blocked.reportedItem,
-                timeLeft,
-                accountType: user.accountType,
-            };
+        // Create a map of userId to report for quick lookup
+        const reportMap = new Map();
+        reports.forEach((report) => {
+            reportMap.set(report.reportedUser._id.toString(), report);
         });
+
+        // Fetch all reported content in bulk
+        const convoIds = reports
+            .filter((r) => r.entityType === "Convo")
+            .map((r) => r.reportedEntity);
+        const commentIds = reports
+            .filter((r) => r.entityType === "Comment")
+            .map((r) => r.reportedEntity);
+
+        const [convoContents, commentContents] = await Promise.all([
+            Convo.find({ _id: { $in: convoIds } }).select("_id body"),
+            Comment.find({ _id: { $in: commentIds } }).select("_id content"),
+        ]);
+
+        // Create content maps
+        const convoMap = new Map(
+            convoContents.map((c) => [c._id.toString(), c.body])
+        );
+        const commentMap = new Map(
+            commentContents.map((c) => [c._id.toString(), c.content])
+        );
+
+        const formattedUsers = await Promise.all(
+            users.map(async (user) => {
+                const { blocked } = user;
+                const fullName = `${user.firstName || ""} ${
+                    user.lastName || ""
+                }`.trim();
+
+                let timeLeft = null;
+                if (blocked.unblockDate) {
+                    const msLeft =
+                        blocked.unblockDate.getTime() - now.getTime();
+                    const days = Math.floor(msLeft / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((msLeft / (1000 * 60 * 60)) % 24);
+                    const minutes = Math.floor((msLeft / (1000 * 60)) % 60);
+                    timeLeft = `${days}d ${hours}h ${minutes}m`;
+                } else {
+                    timeLeft = "Permanent";
+                }
+
+                let reportDetails = null;
+                const report = reportMap.get(user._id.toString());
+                if (report) {
+                    let reportedContent = null;
+
+                    if (report.entityType === "Comment") {
+                        reportedContent = commentMap.get(
+                            report.reportedEntity.toString()
+                        );
+                    } else if (report.entityType === "Convo") {
+                        reportedContent = convoMap.get(
+                            report.reportedEntity.toString()
+                        );
+                    }
+                    reportDetails = {
+                        reportedBy: {
+                            id: report.reportedBy._id,
+                            name: report.reportedBy.firstName + " " + report.reportedBy.lastName,
+                        },
+                        reportedContent,
+                        reportDescription: report.description,
+                        reportDate: report.createdAt,
+                        entityType: report.entityType,
+                    };
+                }
+
+                return {
+                    userId: user._id,
+                    name: fullName || "N/A",
+                    isBlocked: blocked.status,
+                    blockedType: blocked.type,
+                    blockedAt: blocked.blockedAt,
+                    reportItem: reportDetails,
+                    timeLeft,
+                    accountType: user.accountType,
+                };
+            })
+        );
 
         return ApiResponse.success(
             res,
-            formattedUsers,
+            {
+                users: formattedUsers,
+                pagination: {
+                    total,
+                    currentPage: pageNumber,
+                    limit: limitNumber,
+                    totalPages: Math.ceil(total / limitNumber),
+                    hasNextPage: pageNumber * limitNumber < total,
+                    hasPreviousPage: pageNumber > 1,
+                },
+            },
             "Blocked users fetched successfully."
         );
     } catch (error) {
@@ -318,6 +616,7 @@ exports.getTownSquareOverview = asyncHandler(async (req, res, next) => {
         // Convert to Date objects
         const start = new Date(startDate);
         const end = new Date(endDate);
+        start.setHours(0, 0, 0, 0); // Include the entire endDate
         end.setHours(23, 59, 59, 999); // Include the entire endDate
 
         const currentEnd = new Date();
@@ -625,98 +924,57 @@ exports.getUserManagement = asyncHandler(async (req, res, next) => {
     }
 });
 
-// exports.getUserManagement = asyncHandler(async (req, res, next) => {
-//     try {
-//         let { page = 1, limit = 10, blocked } = req.query;
-//         page = parseInt(page);
-//         limit = parseInt(limit);
+// Add these to your user controller file (probably in controllers/v2/userController.js)
 
-//         if (page < 1) page = 1;
-//         if (limit < 1) limit = 10;
+exports.getAllCounsellors = async (req, res) => {
+    try {
+        // Find all counsellors and populate necessary fields
+        const counsellors = await Counsellor.find({})
+            .select("-password -__v") // Exclude sensitive fields
+            .populate("interestedTopics", "name")
+            .populate("pinnedTopics", "name");
 
-//         const skip = (page - 1) * limit;
+        // Separate verified and unverified counsellors
+        const verified = counsellors.filter(c => c.isVerified);
+        const unverified = counsellors.filter(c => !c.isVerified);
 
-//         // Build the filter object
-//         let filter = {};
-//         if (blocked !== undefined) {
-//             filter.blocked = blocked === "true"; // Convert string to boolean
-//         }
+        return ApiResponse.success(res, {
+            verified,
+            unverified
+        }, "Counsellors retrieved successfully");
+    } catch (error) {
+        return ApiResponse.error(res, error.message);
+    }
+};
 
-//         // Fetch users with session count and apply filter
-//         const users = await User.aggregate([
-//             { $match: filter }, // Apply filter for blocked users
-//             {
-//                 $lookup: {
-//                     from: "sessions",
-//                     localField: "_id",
-//                     foreignField: "user",
-//                     as: "userSessions",
-//                 },
-//             },
-//             {
-//                 $project: {
-//                     firstName: 1,
-//                     lastName: 1,
-//                     deactivationStatus: 1,
-//                     blocked: 1,
-//                     createdAt: 1,
-//                     sessionCount: { $size: "$userSessions" }, // Count the number of sessions
-//                 },
-//             },
-//             { $sort: { createdAt: -1 } }, // Sorting by newest users first
-//             { $skip: skip },
-//             { $limit: limit },
-//         ]);
+exports.verifyCounsellor = async (req, res) => {
+    const { isVerified, userId, rejectionReason } = req.body;
 
-//         console.log("USers: ", users);
-//         // Get total count of filtered users
-//         const totalUsers = await User.countDocuments(filter);
+    try {
+        // Find the counsellor by ID
+        const counsellor = await Counsellor.findById(userId);
+        if (!counsellor) {
+            return ApiResponse.failure(res, "Counsellor not found");
+        }
 
-//         // Transform users to include accountAge
-//         const transformedUsers = users.map((user) => {
-//             const createdDate = new Date(user.createdAt);
-//             const currentDate = new Date();
+        // Update verification status
+        counsellor.isVerified = isVerified;
+        
+        // If rejecting, add rejection reason
+        if (!isVerified && rejectionReason) {
+            counsellor.rejectionReason = rejectionReason;
+        } else if (isVerified) {
+            counsellor.rejectionReason = undefined; // Clear rejection reason if verifying
+        }
 
-//             const yearDiff =
-//                 currentDate.getFullYear() - createdDate.getFullYear();
-//             const monthDiff =
-//                 currentDate.getMonth() + 1 - (createdDate.getMonth() + 1);
+        await counsellor.save();
 
-//             let accountAge;
-//             if (yearDiff < 1) {
-//                 accountAge = `${Math.max(monthDiff, 1)} month${
-//                     monthDiff > 1 ? "s" : ""
-//                 }`;
-//             } else {
-//                 accountAge = `${yearDiff} year${yearDiff > 1 ? "s" : ""}`;
-//             }
-
-//             return {
-//                 firstName: user.firstName,
-//                 lastName: user.lastName,
-//                 status: user.deactivationStatus
-//                     ? "Inactive"
-//                     : user.blocked
-//                     ? "Blocked"
-//                     : "Active",
-//                 accountAge,
-//                 sessionCount: user.sessionCount, // Include session count
-//                 engagements: "0",
-//             };
-//         });
-
-//         return ApiResponse.success(
-//             res,
-//             {
-//                 totalUsers,
-//                 currentPage: page,
-//                 totalPages: Math.ceil(totalUsers / limit),
-//                 users: transformedUsers,
-//             },
-//             "User management data fetched successfully"
-//         );
-//     } catch (error) {
-//         AppLogger.error(error);
-//         return ApiResponse.error(res, "Error fetching user management data");
-//     }
-// });
+        return ApiResponse.success(
+            res, 
+            counsellor, 
+            isVerified ? "Counsellor verified successfully" : "Counsellor verification rejected"
+        );
+    } catch (error) {
+        return ApiResponse.error(res, error.message);
+    }
+};

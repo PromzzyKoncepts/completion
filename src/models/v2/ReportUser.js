@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const { mongooseV2 } = require("../../configs/database/db");
+const { REPORT_ENTITY_TYPES, USER_ROLES, REPORT_STATUSES } = require("../../configs/constants/enums");
 
 const ReportUserSchema = new mongoose.Schema(
     {
@@ -15,7 +16,7 @@ const ReportUserSchema = new mongoose.Schema(
         },
         entityType: {
             type: String,
-            enum: ["User", "Media", "Comment", "Article", "Convo"],
+            enum:REPORT_ENTITY_TYPES,
             required: true,
         },
         reportedUser: {
@@ -25,7 +26,7 @@ const ReportUserSchema = new mongoose.Schema(
         },
         reportedUserRole: {
             type: String,
-            enum: ["serviceuser", "counsellor"],
+            enum: USER_ROLES,
             required: true,
         },
         description: {
@@ -34,7 +35,7 @@ const ReportUserSchema = new mongoose.Schema(
         },
         status: {
             type: String,
-            enum: ["unresolved", "reviewed", "resolved"],
+            enum: REPORT_STATUSES,
             default: "unresolved",
         },
     },

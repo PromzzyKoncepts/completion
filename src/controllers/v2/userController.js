@@ -223,7 +223,7 @@ exports.updateUserRole = asyncHandler(async (req, res, next) => {
         const { newRole } = req.body;
 
         // Validate input
-        if (!['admin', 'counsellor', 'serviceuser'].includes(newRole)) {
+        if (!["admin", "counsellor", "serviceuser"].includes(newRole)) {
             return ApiResponse.failure(res, "Invalid role specified");
         }
 
@@ -262,7 +262,6 @@ exports.updateName = asyncHandler(async (req, res, next) => {
         }
 
         // Find the user by their ID (assumed to be in req.user.id) and update the firstname and lastname
-        console.log(req.user.id)
         const updatedUser = await User.findByIdAndUpdate(
             req.user.id, // Ensure this is the correct user ID
             {
@@ -301,9 +300,9 @@ exports.adminResetPassword = asyncHandler(async (req, res) => {
         const { newPassword } = req.body;
 
         // Verify admin privileges
-        if (req.user.accountType !== 'admin') {
-            return ApiResponse.failure(res, "Unauthorized access", 403);
-        }
+        // if (req.user.accountType !== 'admin') {
+        //     return ApiResponse.failure(res, "Unauthorized access", 403);
+        // }
 
         // Validate new password
         if (!newPassword) {
@@ -416,7 +415,7 @@ exports.updateEmail = asyncHandler(async (req, res, next) => {
         // Find the user by their ID (assumed to be in req.user.id) and update the email
         const updatedUser = await User.findByIdAndUpdate(
             req.user.id,
-            { email: newEmail },
+            { email: newEmail, isEmailVerified: false },
             { new: true, runValidators: true } // Options: return the updated document and run validators
         );
 
@@ -469,8 +468,8 @@ exports.updateUserEmail = asyncHandler(async (req, res, next) => {
     }
 
     // Update the user's email (but mark the email as unverified)
-    // currentUser.email = newEmail;
-    //currentUser.isEmailVerified = false;
+    currentUser.email = newEmail;
+    currentUser.isEmailVerified = false;
     currentUser.verifyEmailCode = Math.floor(1000 + Math.random() * 9000); // Generate new email verification code
 
     // Save the updated user info
@@ -1224,7 +1223,10 @@ exports.getCounsellorUsers = async (req, res) => {
             counsellor: _id,
         })
             .select("user")
-            .populate("user")
+            .populate({
+                path: "user",
+                select: "firstName lastName gender profilePicture countryOfResidence username email",
+            })
             .exec();
 
         return ApiResponse.success(res, counsellorUsers);
@@ -1242,7 +1244,10 @@ exports.getUserCounsellors = async (req, res) => {
             user: _id,
         })
             .select("counsellor")
-            .populate("counsellor")
+            .populate({
+                path: "counsellor",
+                select: "firstName lastName gender profilePicture countryOfResidence username sessionPreferences specialisedSupport focusArea schedule",
+            })
             .exec();
 
         return ApiResponse.success(res, userCounsellors);
@@ -1255,7 +1260,10 @@ exports.getUserByName = async (req, res) => {
     try {
         const { firstName, lastName } = req.query;
 
-        const user = await User.find({ firstName, lastName });
+        const user = await User.find(
+            { firstName, lastName },
+            "firstName lastName profilePicture username"
+        );
 
         return ApiResponse.success(res, user);
     } catch (error) {
@@ -1308,11 +1316,26 @@ exports.getUserById = async (req, res) => {
     try {
         const { id } = req.params;
 
-        const user = await User.findOne({ _id: id });
+        const user = await User.findOne({ _id: id })
+            .select(
+                "firstName lastName gender profilePicture countryOfResidence username privacy"
+            )
+            .lean();
 
         if (!user) {
             return ApiResponse.error(res, "User not found", 404);
         }
+
+        if (user?.privacy?.showName === false) {
+            user.firstName = "Anonymous";
+            user.lastName = "";
+        }
+        if (user?.privacy.showProfilePic === false) {
+            user.profilePicture = {
+                url: "",
+            };
+        }
+
         const sessionsCompleted = await Session.countDocuments({
             $and: [
                 { status: "completed" },

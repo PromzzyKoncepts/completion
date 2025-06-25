@@ -1,51 +1,9 @@
 const asyncHandler = require("../../middlewares/asyncHandler");
 const AppLogger = require("../../middlewares/logger/logger");
 const ApiResponse = require("../../utils/ApiResponse");
-const MediaOverview = require("../../models/v2/mediaOverviewSchema");
+const MediaOverview = require("../../models/v2/MediaOverviewSchema");
 
-// exports.getMediaOverview = asyncHandler(async (req, res, next) => {
-//     try {
-//         const { startDate, endDate } = req.query;
 
-//         AppLogger.info(
-//             `Media overview fetch request received with date range. startDate: ${startDate}, endDate: ${endDate}`
-//         );
-
-//         // Build query object
-//         const query = {};
-//         if (startDate || endDate) {
-//             query.createdAt = {};
-//             if (startDate) query.createdAt.$gte = new Date(startDate);
-//             if (endDate) query.createdAt.$lte = new Date(endDate);
-//         }
-
-//         const overviews = await MediaOverview.find(query).sort({
-//             createdAt: -1,
-//         });
-
-//         if (!overviews.length) {
-//             AppLogger.warn(
-//                 "No media overview records found for the specified date range."
-//             );
-//             return ApiResponse.error(
-//                 res,
-//                 "No media overview data found for the specified date range."
-//             );
-//         }
-
-//         AppLogger.info("Media overview records fetched successfully.");
-//         return ApiResponse.success(
-//             res,
-//             overviews,
-//             "Media overview records retrieved successfully."
-//         );
-//     } catch (error) {
-//         AppLogger.error(
-//             `Error fetching media overview records. Error: ${error.message}`
-//         );
-//         return ApiResponse.error(res, "Error fetching media overview records.");
-//     }
-// });
 exports.getWeeklyMediaTrends = asyncHandler(async (req, res, next) => {
     try {
         let { startDate, endDate } = req.query;

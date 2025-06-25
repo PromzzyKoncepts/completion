@@ -44,8 +44,3 @@ packge-lock.json
 .yarnrc.yml
 .idea
 .vs
-# Ignore Firebase service account key
-src/configs/firebase/serviceAccountkey.json
-
-# Ignore environment files with secrets
-src/configs/envs/.env.development

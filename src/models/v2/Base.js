@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const { mongooseV2 } = require("../../configs/database/db");
 const argon = require("argon2");
+const SoftDelete = require("./SoftDelete");
 // const argon = require("argon2");
 
 const baseOption = {
@@ -13,6 +14,7 @@ const baseSchema = new mongoose.Schema(
         email: {
             type: String,
             unique: true,
+            sparse: true,
         },
         isEmailVerified: {
             type: Boolean,
@@ -44,6 +46,7 @@ const baseSchema = new mongoose.Schema(
         username: {
             type: String,
             unique: true,
+            sparse: true,
         },
 
         favorites: [
@@ -76,7 +79,7 @@ const baseSchema = new mongoose.Schema(
             reason: {
                 type: String,
             },
-            reportedItem: {
+             reportedItem: {
                 type: String, //Convo : "" || Comment: ""
             },
             type: {
@@ -111,7 +114,6 @@ const baseSchema = new mongoose.Schema(
                 },
             },
         ],
-
         firstName: {
             type: String,
         },
@@ -300,10 +302,32 @@ baseSchema.methods.activate = function () {
     return this.save();
 };
 
-baseSchema.methods.softDelete = function (reason) {
+baseSchema.methods.softDelete = async function (reason) {
     this.deleted = true;
     this.timeDeleted = new Date(); // Set current time
     this.deleteReason = reason || null; // Add the delete reason or set it to null if not provided
+    this.profilePicture = {
+        url: "https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png",
+        reference: null,
+    };
+    await SoftDelete.create({
+        email: this.email,
+        userId: this._id,
+        username: this.username,
+        phoneNumber: this.phoneNumber,
+        firstName: this.firstName,
+        lastName: this.lastName,
+    });
+    this.firstName = "Deleted";
+    this.lastName = "User";
+    this.email = undefined;
+    this.markModified("email");
+    this.username = "deleted_user_" + this._id.toString().slice(-4);
+    this.phoneNumber = undefined;
+    this.markModified("phoneNumber");
+    this.pushToken = "";
+    this.favorites = []; // Clear favorites
+
     return this.save();
 };
 
@@ -321,11 +345,11 @@ baseSchema.methods.updateNotificationSettings = async function (settings) {
         "emailNewConvo",
         "pushRescheduleRequest",
         "emailRescheduleRequest",
-        "commentReplies",
+        "commentReplies"
     ];
 
     // Update only the allowed fields
-    Object.keys(settings).forEach((key) => {
+    Object.keys(settings).forEach(key => {
         if (allowedUpdates.includes(key)) {
             this.notificationSettings[key] = settings[key];
         }

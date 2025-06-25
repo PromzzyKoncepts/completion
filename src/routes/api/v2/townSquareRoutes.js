@@ -3,16 +3,31 @@ const TownSquareController = require("../../../controllers/v2/townSquareControll
 const MediaController = require("../../../controllers/v2/mediaController");
 const AuthMiddleware = require("../../../middlewares/v2/auth");
 const TownSquareMiddleware = require("../../../middlewares/v2/townSquare");
+const { upload } = require("../../../middlewares/media");
 
 const router = express.Router();
 
+const TopicIcons = upload.fields([
+  { name: "image", maxCount: 1 },
+  { name: /tips\[\d+\]\[icon\]/, maxCount: 1 }
+]);
 router.post(
   "/topic",
+  TopicIcons,
   TownSquareMiddleware.validateAddTopic,
   AuthMiddleware.protect,
   AuthMiddleware.restrictTo("admin"),
   TownSquareController.addTopic,
 );
+
+router.patch(
+  "/topic/:id",
+  upload.single("image"),
+  AuthMiddleware.protect,
+  AuthMiddleware.restrictTo("admin"),
+  TownSquareController.updateTopic
+  
+)
 
 router.get(
   "/topic",
@@ -25,6 +40,7 @@ router.get(
   AuthMiddleware.protect,
   TownSquareController.getTopicDetails,
 )
+
 
 router.patch(
   "/topic/:id/mute",
